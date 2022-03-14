@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1800
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Izibiz_dotnet_rest_client", "Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client.csproj", "{F86C9F72-3C6D-4B66-AD0C-60E213BDDCF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples.csproj", "{7FD440DF-0977-48CC-A184-94C1503F4471}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F86C9F72-3C6D-4B66-AD0C-60E213BDDCF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86C9F72-3C6D-4B66-AD0C-60E213BDDCF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86C9F72-3C6D-4B66-AD0C-60E213BDDCF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86C9F72-3C6D-4B66-AD0C-60E213BDDCF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FD440DF-0977-48CC-A184-94C1503F4471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FD440DF-0977-48CC-A184-94C1503F4471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FD440DF-0977-48CC-A184-94C1503F4471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FD440DF-0977-48CC-A184-94C1503F4471}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE89B270-0432-4DDA-BBE4-26A11139B0FC}
+	EndGlobalSection
+EndGlobal
