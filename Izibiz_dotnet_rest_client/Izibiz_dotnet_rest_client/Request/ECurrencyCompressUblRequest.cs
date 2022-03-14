@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Izibiz_dotnet_rest_client.Request
+namespace Izibiz.Request
 {
 
     public class ECurrencyCompressUblRequest

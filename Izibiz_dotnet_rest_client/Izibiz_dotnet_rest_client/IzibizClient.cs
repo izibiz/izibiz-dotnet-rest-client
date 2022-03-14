@@ -1,10 +1,10 @@
-﻿using Izibiz_dotnet_rest_client.Adapter;
+﻿using Izibiz.Adapter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Izibiz_dotnet_rest_client
+namespace Izibiz
 {
     public class IzibizClient
     {

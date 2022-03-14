@@ -26,11 +26,9 @@ C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_clie
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\testcentric.engine.metadata.dll
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\Samples.dll
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\Samples.pdb
-C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\Izibiz_dotnet_rest_client.dll
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\nunit.framework.dll
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\Ionic.Zip.dll
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\Newtonsoft.Json.dll
-C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\Izibiz_dotnet_rest_client.pdb
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\nunit.framework.xml
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\Newtonsoft.Json.xml
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\obj\Debug\Samples.csprojAssemblyReference.cache
@@ -38,3 +36,5 @@ C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_clie
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\obj\Debug\Samples.csproj.CopyComplete
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\obj\Debug\Samples.dll
 C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\obj\Debug\Samples.pdb
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\Izibiz.dll
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Samples\bin\Debug\Izibiz.pdb

@@ -1,0 +1,10 @@
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client\bin\Debug\Izibiz.dll
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client\bin\Debug\Izibiz.pdb
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client\bin\Debug\Ionic.Zip.dll
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client\bin\Debug\Newtonsoft.Json.dll
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client\bin\Debug\Newtonsoft.Json.xml
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client\obj\Debug\Izibiz.csprojAssemblyReference.cache
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client\obj\Debug\Izibiz.csproj.CoreCompileInputs.cache
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client\obj\Debug\Izibiz.csproj.CopyComplete
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client\obj\Debug\Izibiz.dll
+C:\Users\meryem.aksu\Documents\izibiz-dotnet-rest-client\Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client\obj\Debug\Izibiz.pdb

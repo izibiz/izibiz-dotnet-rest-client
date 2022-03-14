@@ -1,7 +1,7 @@
-﻿using Izibiz_dotnet_rest_client;
-using Izibiz_dotnet_rest_client.Adapter;
-using Izibiz_dotnet_rest_client.Operations;
-using Izibiz_dotnet_rest_client.Request;
+﻿using Izibiz;
+using Izibiz.Adapter;
+using Izibiz.Operations;
+using Izibiz.Request;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

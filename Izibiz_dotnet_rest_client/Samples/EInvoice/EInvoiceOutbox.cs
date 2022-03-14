@@ -1,14 +1,14 @@
-﻿using Izibiz_dotnet_rest_client;
-using Izibiz_dotnet_rest_client.Response;
-using Izibiz_dotnet_rest_client.Adapter;
-using Izibiz_dotnet_rest_client.Request;
+﻿using Izibiz;
+using Izibiz.Response;
+using Izibiz.Adapter;
+using Izibiz.Request;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using Izibiz_dotnet_rest_client.Operations;
+using Izibiz.Operations;
 
 namespace Samples.EInvoice
 {
@@ -33,7 +33,7 @@ namespace Samples.EInvoice
             System.Diagnostics.Debug.WriteLine(request.pageable);
         }
 
-        [Test,Order(2)]//Cevap Teslim Edilemeyen Faturalar------ DENE
+        [Test,Order(2)]//Cevap Teslim Edilemeyen Faturalar
         public void EInvoiceUndeliverableList_Outbox()
         {
             var request = _izibizClient.EInvoice().UndeliverableEInvoiceList_Outbox(Authentication.Token);
@@ -48,7 +48,7 @@ namespace Samples.EInvoice
             System.Diagnostics.Debug.WriteLine(request.pageable);
         }
 
-        [Test, Order(3)]//Reddedilen Faturalar  ---- DENE
+        [Test, Order(3)]//Reddedilen Faturalar 
         public void EInvoiceRejected_Outbox()
         {
             var request = _izibizClient.EInvoice().RejectedEInvoiceList_Outbox(Authentication.Token);

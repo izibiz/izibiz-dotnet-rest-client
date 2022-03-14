@@ -1,14 +1,14 @@
-﻿using Izibiz_dotnet_rest_client;
-using Izibiz_dotnet_rest_client.Response;
-using Izibiz_dotnet_rest_client.Adapter;
-using Izibiz_dotnet_rest_client.Request;
+﻿using Izibiz;
+using Izibiz.Response;
+using Izibiz.Adapter;
+using Izibiz.Request;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using Izibiz_dotnet_rest_client.Operations;
+using Izibiz.Operations;
 
 namespace Samples.EArchiveInvoice
 {

@@ -1,5 +1,5 @@
-﻿using Izibiz_dotnet_rest_client.Request;
-using Izibiz_dotnet_rest_client.Response;
+﻿using Izibiz.Request;
+using Izibiz.Response;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace Izibiz_dotnet_rest_client.Adapter
+namespace Izibiz.Adapter
 {
     public class AuthAdapter : BaseAdapter
     {

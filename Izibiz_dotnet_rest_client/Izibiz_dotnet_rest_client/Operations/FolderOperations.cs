@@ -6,7 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 
-namespace Izibiz_dotnet_rest_client.Operations
+namespace Izibiz.Operations
 {
     public class FolderOperations
     {

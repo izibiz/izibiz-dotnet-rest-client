@@ -7,8 +7,8 @@
     <ProjectGuid>{F86C9F72-3C6D-4B66-AD0C-60E213BDDCF3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Izibiz_dotnet_rest_client</RootNamespace>
-    <AssemblyName>Izibiz_dotnet_rest_client</AssemblyName>
+    <RootNamespace>Izibiz</RootNamespace>
+    <AssemblyName>Izibiz</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

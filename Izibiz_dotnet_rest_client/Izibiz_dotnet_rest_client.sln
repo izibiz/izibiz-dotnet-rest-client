@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1800
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Izibiz_dotnet_rest_client", "Izibiz_dotnet_rest_client\Izibiz_dotnet_rest_client.csproj", "{F86C9F72-3C6D-4B66-AD0C-60E213BDDCF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Izibiz", "Izibiz_dotnet_rest_client\Izibiz.csproj", "{F86C9F72-3C6D-4B66-AD0C-60E213BDDCF3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples.csproj", "{7FD440DF-0977-48CC-A184-94C1503F4471}"
 EndProject

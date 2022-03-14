@@ -1,14 +1,14 @@
-﻿using Izibiz_dotnet_rest_client;
-using Izibiz_dotnet_rest_client.Response;
-using Izibiz_dotnet_rest_client.Adapter;
-using Izibiz_dotnet_rest_client.Request;
+﻿using Izibiz;
+using Izibiz.Response;
+using Izibiz.Adapter;
+using Izibiz.Request;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using Izibiz_dotnet_rest_client.Operations;
+using Izibiz.Operations;
 
 namespace Samples.ReceiptDespatch
 {
@@ -42,7 +42,7 @@ namespace Samples.ReceiptDespatch
         }
 
 
-        [Test, Order(3)]//Giden İrsaliyelerin xml --------DENE
+        [Test, Order(3)]//Giden İrsaliyelerin xml 
         public void EDespatchReceiptUBL()
         {
             var request = _izibizClient.EDespatchReceipt().EDespatchReceiptDocument(Authentication.Token,"XML");
@@ -50,7 +50,7 @@ namespace Samples.ReceiptDespatch
             FolderOperations.SaveToDisk(nameof(EI.Type.EDespatchReceipt), nameof(EI.DocumentType.XML), request);
         }
 
-        [Test, Order(4)]//Giden İrsaliyelerin xml --------DENE
+        [Test, Order(4)]//Giden İrsaliyelerin xml 
         public void EDespatchReceiptHtml()
         {
             var request = _izibizClient.EDespatchReceipt().EDespatchReceiptDocument(Authentication.Token, "HTML");
@@ -59,7 +59,7 @@ namespace Samples.ReceiptDespatch
         }
 
 
-        [Test, Order(5)]//Giden İrsaliyelerin xml --------DENE
+        [Test, Order(5)]//Giden İrsaliyelerin xml 
         public void EDespatchReceiptPdf()
         {
             var request = _izibizClient.EDespatchReceipt().EDespatchReceiptDocument(Authentication.Token, "PDF");
