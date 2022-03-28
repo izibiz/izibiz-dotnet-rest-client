@@ -24,7 +24,8 @@ namespace Izibiz.Operations
            EDespatchReceipt,
            CreditNote,
            ESmm,
-           ECurrency
+           ECurrency,
+           ETicket
         }
 
         public enum Status

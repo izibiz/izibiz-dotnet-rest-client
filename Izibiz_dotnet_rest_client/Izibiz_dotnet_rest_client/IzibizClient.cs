@@ -16,6 +16,7 @@ namespace Izibiz
         private readonly CreditNoteAdapter _creditNoteAdapter;
         private readonly ESmmAdapter _eSmmAdapter;
         private readonly ECurrencyAdapter _eCurrencyAdapter;
+        private readonly ETicketAdapter _eTicketAdapter;
 
         //public IzibizClient(string username, string password, string baseUrl)
         //{
@@ -27,7 +28,7 @@ namespace Izibiz
         //    };
         //}
 
-            public IzibizClient()
+        public IzibizClient()
         {
            
             _authAdapter = new AuthAdapter();
@@ -38,6 +39,7 @@ namespace Izibiz
             _creditNoteAdapter = new CreditNoteAdapter();
             _eSmmAdapter = new ESmmAdapter();
             _eCurrencyAdapter = new ECurrencyAdapter();
+            _eTicketAdapter = new ETicketAdapter();
         }
 
 
@@ -79,6 +81,11 @@ namespace Izibiz
         public ECurrencyAdapter ECurrency()
         {
             return _eCurrencyAdapter;
+        }
+
+        public ETicketAdapter ETicket()
+        {
+            return _eTicketAdapter;
         }
     }
 }

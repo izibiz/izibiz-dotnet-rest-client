@@ -41,6 +41,10 @@ namespace Izibiz.Operations
             {
                 return string.Format("{0}{1}", folderpath, @"\EDöviz\");
             }
+            else if (type == nameof(EI.Type.ETicket))
+            {
+                return string.Format("{0}{1}", folderpath, @"\EAdisyon\");
+            }
 
             return null;
         }

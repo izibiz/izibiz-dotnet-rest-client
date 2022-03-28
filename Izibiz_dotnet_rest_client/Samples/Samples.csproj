@@ -54,6 +54,7 @@
     <Compile Include="EInvoice\EInvoiceOutbox.cs" />
     <Compile Include="EInvoice\EInvoice.cs" />
     <Compile Include="ESmm\ESmm.cs" />
+    <Compile Include="ETicket\ETicket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceiptDespatch\EDespatchReceipt.cs" />
   </ItemGroup>

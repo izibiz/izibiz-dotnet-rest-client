@@ -18,10 +18,12 @@ namespace Izibiz.Adapter
         ECurrencyDowloadResponse eCurrencyDowloadResponse;
         Dictionary<string, byte[]> dicECurrencyList = new Dictionary<string, byte[]>();
 
-        public BaseResponse<object> ECurrencyInformation(ECurrencyRequest request,string token)
+        public BaseResponse<object> ECurrencyInformation(ECurrencyRequest request, string token)
         {
             string url = BaseAdapter.BaseUrl + "/v1/exchanges";
-            var responseData = (string)baseAdapter.HttpReqRes(token, url,"POST",request);
+            var deserializerData2 = JsonConvert.SerializeObject(request);
+
+            var responseData = (string)baseAdapter.HttpReqRes(token, url, "POST", request);
             var deserializerData = JsonConvert.DeserializeObject<BaseResponse<object>>(responseData);
             //eCurrencyResponse = deserializerData.data;
             return deserializerData;

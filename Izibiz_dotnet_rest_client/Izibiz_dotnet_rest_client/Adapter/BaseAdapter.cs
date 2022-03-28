@@ -104,6 +104,10 @@ namespace Izibiz.Adapter
             {
                 url = BaseAdapter.BaseUrl + "/v1/esmms/lookup-statuses";
             }
+            else if (type == "ETicket")
+            {
+                url = BaseAdapter.BaseUrl + "/v1/echecks/lookup-statuses";
+            }
 
             var StatusResponse = (string)HttpReqRes(token, url);
             var deserializerData = JsonConvert.DeserializeObject<BaseResponse<object>>(StatusResponse);
