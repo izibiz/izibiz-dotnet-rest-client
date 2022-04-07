@@ -15,8 +15,8 @@ namespace Izibiz
         private readonly EDespatchReceiptAdapter _eDespatchReceiptAdapter;
         private readonly CreditNoteAdapter _creditNoteAdapter;
         private readonly ESmmAdapter _eSmmAdapter;
-        private readonly ECurrencyAdapter _eCurrencyAdapter;
-        private readonly ETicketAdapter _eTicketAdapter;
+        private readonly EExchangeAdapter _eCurrencyAdapter;
+        private readonly ECheckAdapter _eTicketAdapter;
 
         //public IzibizClient(string username, string password, string baseUrl)
         //{
@@ -38,8 +38,8 @@ namespace Izibiz
             _eDespatchReceiptAdapter = new EDespatchReceiptAdapter();
             _creditNoteAdapter = new CreditNoteAdapter();
             _eSmmAdapter = new ESmmAdapter();
-            _eCurrencyAdapter = new ECurrencyAdapter();
-            _eTicketAdapter = new ETicketAdapter();
+            _eCurrencyAdapter = new EExchangeAdapter();
+            _eTicketAdapter = new ECheckAdapter();
         }
 
 
@@ -78,12 +78,12 @@ namespace Izibiz
             return _eSmmAdapter;
         }
 
-        public ECurrencyAdapter ECurrency()
+        public EExchangeAdapter EExchange()
         {
             return _eCurrencyAdapter;
         }
 
-        public ETicketAdapter ETicket()
+        public ECheckAdapter ECheck()
         {
             return _eTicketAdapter;
         }

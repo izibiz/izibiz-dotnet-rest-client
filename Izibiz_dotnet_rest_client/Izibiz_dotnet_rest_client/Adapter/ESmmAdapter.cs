@@ -27,22 +27,14 @@ namespace Izibiz.Adapter
         }
 
 
-        public Dictionary<string, byte[]> ESmmDocument(string token, string documentType)
+        public Dictionary<string, byte[]> GetESmmDocument(string token, Enum documentType)
         {
             dicCreditNoteList.Clear();
             foreach (var eSmm in eSmmResponse.contents)
             {
                 try
                 {
-                    string url = "";
-                    if (documentType == nameof(EI.DocumentType.XML))
-                    {
-                        url = BaseAdapter.BaseUrl + "/v1/esmms/" + eSmm.id + "/preview/ubl";
-                    }
-                    else if (documentType == nameof(EI.DocumentType.HTML))
-                    {
-                        url = BaseAdapter.BaseUrl + "/v1/esmms/" + eSmm.id + "/preview/html";
-                    }
+                    string url = BaseAdapter.BaseUrl + "/v1/esmms/" + eSmm.id + "/preview/"+ documentType.ToString().ToLower();
                     //else if (documentType == nameof(EI.DocumentType.PDF))
                     //{
                     //    url = BaseAdapter.BaseUrl + "/v1/esmms/" + eSmm.id + "/preview/pdf";
@@ -59,9 +51,9 @@ namespace Izibiz.Adapter
             return dicCreditNoteList;
         }
 
-        public BaseResponse<object> ESmmStatus(string token)
+        public BaseResponse<object> GetESmmStatus(string token)
         {
-            var deserializerData = baseAdapter.Status(token, nameof(EI.Type.ESmm));
+            var deserializerData = baseAdapter.Status(token,EI.Type.ESmm);
             return deserializerData;
         }
 

@@ -12,49 +12,49 @@ using Izibiz.Operations;
 
 namespace Samples.ESmm
 {
-   //[Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
+//   [Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
     public class ESmm
     {
        private readonly IzibizClient _izibizClient = new IzibizClient();
 
         [Test, Order(1)]
-        public void ESmmList()
+        public void GetESmmList()
         {
-            var request = _izibizClient.ESmm().List(Authentication.Token);
-            Assert.NotNull(request);
+            var response = _izibizClient.ESmm().List(Authentication.Token);
+            Assert.NotNull(response);
             System.Diagnostics.Debug.WriteLine("E-Smm Listesi : ");
-            foreach (var esmm in request.contents)
+            foreach (var esmm in response.contents)
             {
-                    System.Diagnostics.Debug.WriteLine("Fatura uuid : " + esmm.uuid + "Fatura ID : " + esmm.documentNo); 
+                    System.Diagnostics.Debug.WriteLine("E-Smm uuid : " + esmm.uuid + "E-Smm ID : " + esmm.documentNo); 
             }
-            System.Diagnostics.Debug.WriteLine(request.pageable);
+            System.Diagnostics.Debug.WriteLine(response.pageable);
         }
 
 
         [Test, Order(2)]
-        public void ESmmInquiry_HTML()
+        public void GetESmmInquiry_HTML()
         {
-            var request = _izibizClient.ESmm().ESmmDocument(Authentication.Token,nameof(EI.DocumentType.HTML));
-            Assert.NotNull(request);
-            Assert.IsTrue(request.Count() > 0);
-            FolderOperations.SaveToDisk(nameof(EI.Type.ESmm), nameof(EI.DocumentType.HTML), request);
+            var response = _izibizClient.ESmm().GetESmmDocument(Authentication.Token,EI.DocumentType.HTML);
+            Assert.NotNull(response);
+            Assert.IsTrue(response.Count() > 0);
+            FolderOperations.SaveToDisk(EI.Type.ESmm, EI.DocumentType.HTML, response);
         }
 
         [Test, Order(3)]
-        public void ESmmInquiry_XML()
+        public void GetESmmInquiry_UBL()
         {
-            var request = _izibizClient.ESmm().ESmmDocument(Authentication.Token,nameof(EI.DocumentType.XML));
-            Assert.NotNull(request);
-            Assert.IsTrue(request.Count() > 0);
-            FolderOperations.SaveToDisk(nameof(EI.Type.ESmm), nameof(EI.DocumentType.XML), request);
+            var response = _izibizClient.ESmm().GetESmmDocument(Authentication.Token,EI.DocumentType.UBL);
+            Assert.NotNull(response);
+            Assert.IsTrue(response.Count() > 0);
+            FolderOperations.SaveToDisk(EI.Type.ESmm, EI.DocumentType.XML, response);
         }
 
         [Test, Order(4)]
-        public void ESmmStatus()
+        public void GetESmmStatus()
         {
-            var request = _izibizClient.ESmm().ESmmStatus(Authentication.Token);
-            Assert.NotNull(request);
-            System.Diagnostics.Debug.WriteLine("E-Smm Durumları : " + request.data);
+            var response = _izibizClient.ESmm().GetESmmStatus(Authentication.Token);
+            Assert.NotNull(response);
+            System.Diagnostics.Debug.WriteLine("E-Smm Durumları : " + response.data);
 
         }
 

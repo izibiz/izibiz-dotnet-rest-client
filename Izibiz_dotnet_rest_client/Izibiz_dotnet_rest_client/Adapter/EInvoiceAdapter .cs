@@ -16,6 +16,7 @@ namespace Izibiz.Adapter
         EInvoiceResponse eInvoiceResponse;
         EInvoiceResponse eInvoiceListResponse;
         EInvoiceResponse eInvoiceListResponse_Outbox;
+        EInvoiceResponse eInvoiceList;
         Dictionary<string, byte[]> dicEInvoiceList = new Dictionary<string, byte[]>();
         Dictionary<string, byte[]> dicEInvoiceList_outbox = new Dictionary<string, byte[]>();
         BaseAdapter baseAdapter = new BaseAdapter();
@@ -31,15 +32,6 @@ namespace Izibiz.Adapter
         }
 
 
-        public EInvoiceResponse ApprovalExpiredEInvoice(string token)
-        {
-            string url = BaseAdapter.BaseUrl+"/v1/einvoices/inbox?status=ResponseTimeExpired&page=0&pageSize=100&sortProperty=createDate&sort=asc";
-            var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>(responseData);
-            eInvoiceResponse = deserializerData.data;
-            return eInvoiceResponse;
-        }
-
         public EInvoiceResponse UndeliverableAnswerEInvoiceList(string token)
         {
             string url = BaseAdapter.BaseUrl+ "/v1/einvoices/inbox?status=ResponseUnDelivered&dateType=DELIVERY&startDate=" + baseAdapter.startDate + "&endDate=" + baseAdapter.endDate + "&pageSize=100&sortProperty=createDate&sort=asc";
@@ -48,17 +40,8 @@ namespace Izibiz.Adapter
             eInvoiceResponse = deserializerData.data;
             return eInvoiceResponse;
         }
-
-        public EInvoiceResponse RejectedEInvoiceList(string token)
-        {
-            string url = BaseAdapter.BaseUrl+ "/v1/einvoices/inbox?status=Rejected&dateType=DELIVERY&startDate=" + baseAdapter.startDate + "&endDate=" + baseAdapter.endDate + "&page=0&pageSize=100&sortProperty=createDate&sort=asc";
-            var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>(responseData);
-            eInvoiceResponse = deserializerData.data;
-            return eInvoiceResponse;
-        }
-
-        public Dictionary<string, byte[]> InboxViewEInvoice(string token,string documentType)
+       
+        public Dictionary<string, byte[]> InboxViewEInvoice(string token,Enum documentType)
         {
             dicEInvoiceList.Clear();
             foreach (var inboxHtml in eInvoiceListResponse.contents)
@@ -66,11 +49,11 @@ namespace Izibiz.Adapter
                 try
                 {
                     string url = "";
-                    if (documentType == "HTML")
+                    if (documentType.Equals(EI.DocumentType.HTML))
                     {  url = BaseAdapter.BaseUrl + "/v1/einvoices/inbox/" + inboxHtml.id + "/html"; }
-                    else if(documentType == "XML")
+                    else if(documentType.Equals(EI.DocumentType.XML))
                     {  url = BaseAdapter.BaseUrl + "/v1/einvoices/inbox/" + inboxHtml.id + "/preview/ubl"; }
-                    else if (documentType == "PDF")
+                    else if (documentType.Equals(EI.DocumentType.PDF))
                     {  url = BaseAdapter.BaseUrl + "/v1/einvoices/inbox/" + inboxHtml.id + "/preview/pdf"; }
                     var responseData = baseAdapter.HttpReqRes(token, url);
                     byte[] bytes = Encoding.ASCII.GetBytes((string)responseData);
@@ -83,19 +66,20 @@ namespace Izibiz.Adapter
             }
             return dicEInvoiceList;
         }
+        
 
-
-        public BaseResponse<object> EInvoiceStatus(string token,string status)
+        public BaseResponse<object> EInvoiceStatus(string token,Enum status)
         {
             BaseResponse<object> deserializerData;
-            if (status == "Inbox")
-            {
-                deserializerData = baseAdapter.Status(token, nameof(EI.Type.EInvoice), nameof(EI.Status.Inbox));
-            }
-            else
-            {
-                deserializerData = baseAdapter.Status(token, nameof(EI.Type.EInvoice), nameof(EI.Status.Outbox));
-            }
+            deserializerData = baseAdapter.Status(token, EI.Type.EInvoice, status);
+            //if (status == "Inbox")
+            //{
+            //    deserializerData = baseAdapter.Status(token, EI.Type.EInvoice,EI.Status.Inbox);
+            //}
+            //else
+            //{
+            //    deserializerData = baseAdapter.Status(token,EI.Type.EInvoice,EI.Status.Outbox);
+            //}
             return deserializerData;
         }
 
@@ -121,9 +105,9 @@ namespace Izibiz.Adapter
         }
 
 
-        public EInvoiceResponse ApprovalExpiredEInvoice_Outbox(string token)
+        public EInvoiceResponse ApprovalExpiredEInvoice(string token,Enum productStatus)
         {
-            string url = BaseAdapter.BaseUrl+"/v1/einvoices/outbox?status=ResponseTimeExpired&page=0&pageSize=100&sortProperty=createDate&sort=asc";
+            string url = BaseAdapter.BaseUrl+"/v1/einvoices/"+productStatus.ToString().ToLower()+"?status=ResponseTimeExpired&page=0&pageSize=100&sortProperty=createDate&sort=asc";
             var responseData =(string)baseAdapter.HttpReqRes(token, url);
             var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>(responseData);
             eInvoiceResponse = deserializerData.data;
@@ -141,9 +125,10 @@ namespace Izibiz.Adapter
         }
 
 
-        public EInvoiceResponse RejectedEInvoiceList_Outbox(string token)
+        public EInvoiceResponse RejectedEInvoiceList(string token,Enum productStatus)
         {
-            string url = BaseAdapter.BaseUrl+ "/v1/einvoices/outbox?status=Rejected&dateType=DELIVERY&startDate=" + baseAdapter.startDate + "&endDate=" + baseAdapter.endDate + "&page=0&pageSize=100&sortProperty=createDate&sort=asc";
+
+            string url = BaseAdapter.BaseUrl+ "/v1/einvoices/"+ productStatus.ToString().ToLower() + "?status=Rejected&dateType=DELIVERY&startDate=" + baseAdapter.startDate + "&endDate=" + baseAdapter.endDate + "&page=0&pageSize=100&sortProperty=createDate&sort=asc";
 
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
             var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>(responseData);
@@ -151,35 +136,48 @@ namespace Izibiz.Adapter
             return eInvoiceResponse;
         }
 
-        public Dictionary<string, byte[]> EInvoiceUbl_Outbox(string token)
+         /* Şimdilik çalışmıyor inboxdaki html alanı prewiev olduktan sonra çalışır.
+        public Dictionary<string, byte[]> GetEInvoiceDocument(string token, string documentType,string productStatus)
         {
+            dicEInvoiceList_outbox.Clear();
+            dicEInvoiceList.Clear();
+            if(productStatus==nameof(EI.Status.Outbox))
+            {
+                eInvoiceList = eInvoiceListResponse;
+            }
+            else if(productStatus == nameof(EI.Status.Inbox))
+            {
+                eInvoiceList = eInvoiceListResponse_Outbox;
+            }
+            foreach (var invoice in eInvoiceList.contents)
+            {
+                try
+                {
+
+                    string url = BaseAdapter.BaseUrl + "/v1/einvoices/"+productStatus.ToLower()+"/" + invoice.id + "/preview/" + documentType.ToLower();
+                    var responseData = (string)baseAdapter.HttpReqRes(token, url);
+                    byte[] bytes = Encoding.ASCII.GetBytes(responseData);
+                    dicEInvoiceList_outbox.Add(invoice.documentNo, bytes);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(invoice.documentNo + "mevcut değildir.");
+                }
+            }
+            return dicEInvoiceList_outbox;
+        }
+        */
+
+        public Dictionary<string, byte[]> GetEInvoiceDocument_Outbox(string token, Enum documentType)
+        {
+            dicEInvoiceList_outbox.Clear();
             EInvoiceList_Outbox(token);
             foreach (var outboxUbl in eInvoiceListResponse_Outbox.contents)
             {
                 try
                 {
-                    string url = BaseAdapter.BaseUrl +"/v1/einvoices/outbox/" + outboxUbl.id + "/preview/ubl";
-                    var responseData =(string)baseAdapter.HttpReqRes(token, url);
-                    byte[] bytes = Encoding.ASCII.GetBytes(responseData);
-                    dicEInvoiceList_outbox.Add(outboxUbl.documentNo, bytes);
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine(outboxUbl.documentNo + "mevcut değildir.");
-                }
-            }
-            return dicEInvoiceList_outbox;
-        }
 
-        public Dictionary<string, byte[]> EInvoicePDF_Outbox(string token)
-        {
-            dicEInvoiceList_outbox.Clear();
-            foreach (var outboxUbl in eInvoiceListResponse_Outbox.contents)
-            {
-                try
-                {
-                   
-                    string url = BaseAdapter.BaseUrl + "/v1/einvoices/outbox/" + outboxUbl.id + "/preview/pdf";
+                    string url = BaseAdapter.BaseUrl + "/v1/einvoices/outbox/" + outboxUbl.id + "/preview/"+documentType.ToString().ToLower();
                     var responseData = (string)baseAdapter.HttpReqRes(token, url);
                     byte[] bytes = Encoding.ASCII.GetBytes(responseData);
                     dicEInvoiceList_outbox.Add(outboxUbl.documentNo, bytes);

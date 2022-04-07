@@ -12,7 +12,7 @@ using Izibiz.Operations;
 
 namespace Samples.EInvoice
 {
-  //  [Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
+   //[Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
     public class EInvoice
     {
        private readonly IzibizClient _izibizClient = new IzibizClient();
@@ -34,7 +34,7 @@ namespace Samples.EInvoice
         [Test, Order(2)]//Onay Süresi Geçmiş Faturalar
         public void EInvoiceApprovalExpired()
         {
-            var response = _izibizClient.EInvoice().ApprovalExpiredEInvoice(Authentication.Token);
+            var response = _izibizClient.EInvoice().ApprovalExpiredEInvoice(Authentication.Token,EI.Status.Inbox);
             dictionary.Add("EInvoiceApprovalExpired", response);
 
         }
@@ -50,36 +50,36 @@ namespace Samples.EInvoice
         [Test, Order(2)]//Reddedilen Faturalar
         public void EInvoiceRejected()
         {
-            var response = _izibizClient.EInvoice().RejectedEInvoiceList(Authentication.Token);
+            var response = _izibizClient.EInvoice().RejectedEInvoiceList(Authentication.Token,EI.Status.Inbox);
             dictionary.Add("EInvoiceRejected", response);
         }
 
         [Test, Order(2)]//Gelen Faturaların html 
         public void EInvoiceInboxHtml()
         {
-            var response = _izibizClient.EInvoice().InboxViewEInvoice(Authentication.Token,nameof(EI.DocumentType.HTML));
+            var response = _izibizClient.EInvoice().InboxViewEInvoice(Authentication.Token,EI.DocumentType.HTML);
             Assert.NotNull(response);
-            FolderOperations.SaveToDisk(nameof(EI.Type.EInvoice), nameof(EI.DocumentType.HTML), response);
+            FolderOperations.SaveToDisk(EI.Type.EInvoice, EI.DocumentType.HTML, response);
         }
         [Test, Order(3)]//Gelen Faturaların Ubl 
         public void EInvoiceInboxUBL()
         {
-            var response = _izibizClient.EInvoice().InboxViewEInvoice(Authentication.Token, nameof(EI.DocumentType.XML));
+            var response = _izibizClient.EInvoice().InboxViewEInvoice(Authentication.Token, EI.DocumentType.XML);
             Assert.NotNull(response);
-            FolderOperations.SaveToDisk(nameof(EI.Type.EInvoice), nameof(EI.DocumentType.XML), response);
+            FolderOperations.SaveToDisk(EI.Type.EInvoice, EI.DocumentType.XML, response);
         }
         [Test, Order(4)]//Gelen Faturaların PDF 
         public void EInvoiceInboxPDF()
         {
-            var response = _izibizClient.EInvoice().InboxViewEInvoice(Authentication.Token, nameof(EI.DocumentType.PDF));
+            var response = _izibizClient.EInvoice().InboxViewEInvoice(Authentication.Token, EI.DocumentType.PDF);
             Assert.NotNull(response);
-            FolderOperations.SaveToDisk(nameof(EI.Type.EInvoice), nameof(EI.DocumentType.PDF), response);
+            FolderOperations.SaveToDisk(EI.Type.EInvoice, EI.DocumentType.PDF, response);
         }
 
         [Test, Order(5)]//Gelen Fatura durumları
         public void EInvoiceInboxStatus()
         {
-            var response = _izibizClient.EInvoice().EInvoiceStatus(Authentication.Token,nameof(EI.Status.Inbox));
+            var response = _izibizClient.EInvoice().EInvoiceStatus(Authentication.Token,EI.Status.Inbox);
             Assert.NotNull(response);
             System.Diagnostics.Debug.WriteLine("Gelen Fatura Durumları : " + response.data);
         }

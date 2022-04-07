@@ -12,64 +12,64 @@ using Izibiz.Operations;
 
 namespace Samples.EDespatch
 {
-  //  [Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
+    //[Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
     public class EDespatch
     {
        private readonly IzibizClient _izibizClient = new IzibizClient();
        
 
         [Test,Order(1)]
-        public void EDespatchList()
+        public void GetEDespatchList()
         {
-            var request = _izibizClient.EDespatch().EDespatchList(Authentication.Token);
-            Assert.NotNull(request);
-            foreach (var req in request.contents)
+            var response = _izibizClient.EDespatch().EDespatchList(Authentication.Token);
+            Assert.NotNull(response);
+            foreach (var req in response.contents)
             {
-                System.Diagnostics.Debug.WriteLine("Fatura uuid : " + req.uuid + "Fatura ID : " + req.documentNo);
+                System.Diagnostics.Debug.WriteLine("Irsaliye uuid : " + req.uuid + "Irsaliye ID : " + req.documentNo);
             }
-            System.Diagnostics.Debug.WriteLine(request.pageable);
+            System.Diagnostics.Debug.WriteLine(response.pageable);
         }
 
 
         [Test, Order(2)]
-        public void EDespatchListStatus()
+        public void GetEDespatchListStatus()
         {
-            var request = _izibizClient.EDespatch().EDespatchStatusInquery(Authentication.Token);
-            Assert.NotNull(request);
-            System.Diagnostics.Debug.WriteLine(" Gelen E-İrsaliye Durum Sorgulama : "+ request.data);
+            var response = _izibizClient.EDespatch().EDespatchStatusInquery(Authentication.Token);
+            Assert.NotNull(response);
+            System.Diagnostics.Debug.WriteLine(" Gelen E-İrsaliye Durum Sorgulama : "+ response.data);
         }
 
         [Test, Order(3)]
-        public void EDespatchStatus()
+        public void GetEDespatchStatus()
         {
-            var request = _izibizClient.EDespatch().EDespatchStatus(Authentication.Token,nameof(EI.Status.Inbox));
-            Assert.NotNull(request);
-            System.Diagnostics.Debug.WriteLine("E-İrsaliye Durumları : " + request.data);
+            var response = _izibizClient.EDespatch().EDespatchStatus(Authentication.Token,EI.Status.Inbox);
+            Assert.NotNull(response);
+            System.Diagnostics.Debug.WriteLine("E-İrsaliye Durumları : " + response.data);
         }
 
         [Test, Order(4)]//Giden İrsaliyelerin html 
-        public void EDespatchOutboxHtml()
+        public void GetEDespatchOutboxHtml()
         {
-            var request = _izibizClient.EDespatch().OutboxHtmlEDespatch(Authentication.Token);
-            Assert.NotNull(request);
-            FolderOperations.SaveToDisk(nameof(EI.Type.EDespatch), nameof(EI.DocumentType.HTML), request);
+            var response = _izibizClient.EDespatch().GetEDespatchDocument(Authentication.Token,EI.DocumentType.HTML);
+            Assert.NotNull(response);
+            FolderOperations.SaveToDisk(EI.Type.EDespatch, EI.DocumentType.HTML, response);
         }
 
 
         [Test, Order(5)]//Giden İrsaliyelerin xml 
-        public void EDespatchOutboxUBL()
+        public void GetEDespatchOutboxUBL()
         {
-            var request = _izibizClient.EDespatch().OutboxEDespatchUbl(Authentication.Token);
-            Assert.NotNull(request);
-            FolderOperations.SaveToDisk(nameof(EI.Type.EDespatch), nameof(EI.DocumentType.XML), request);
+            var response = _izibizClient.EDespatch().GetEDespatchDocument(Authentication.Token, EI.DocumentType.UBL);
+            Assert.NotNull(response);
+            FolderOperations.SaveToDisk(EI.Type.EDespatch, EI.DocumentType.XML, response);
         }
 
         [Test, Order(6)]//Giden İrsaliyelerin pdf
-        public void EDespatchOutboxPDF()
+        public void GetEDespatchOutboxPDF()
         {
-            var request = _izibizClient.EDespatch().PdfOutboxEDespatch(Authentication.Token);
-            Assert.NotNull(request);
-            FolderOperations.SaveToDisk(nameof(EI.Type.EDespatch), nameof(EI.DocumentType.PDF), request);
+            var response = _izibizClient.EDespatch().GetEDespatchDocument(Authentication.Token, EI.DocumentType.PDF);
+            Assert.NotNull(response);
+            FolderOperations.SaveToDisk(EI.Type.EDespatch, EI.DocumentType.PDF, response);
         }
 
      

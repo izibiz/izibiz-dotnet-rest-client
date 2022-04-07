@@ -11,6 +11,7 @@ namespace Izibiz.Operations
         {
             PDF,
             XML,
+            UBL,
             HTML,
             XSLT,
             NULL
@@ -24,8 +25,8 @@ namespace Izibiz.Operations
            EDespatchReceipt,
            CreditNote,
            ESmm,
-           ECurrency,
-           ETicket
+           EExchange,
+           ECheck
         }
 
         public enum Status

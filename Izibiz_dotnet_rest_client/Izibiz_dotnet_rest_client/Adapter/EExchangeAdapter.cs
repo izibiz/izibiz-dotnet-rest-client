@@ -11,14 +11,14 @@ using System.Text;
 
 namespace Izibiz.Adapter
 {
-    public class ECurrencyAdapter
+    public class EExchangeAdapter
     {
         BaseAdapter baseAdapter = new BaseAdapter();
-        ECurrencyResponse eCurrencyResponse;
-        ECurrencyDowloadResponse eCurrencyDowloadResponse;
+        EExchangeResponse eCurrencyResponse;
+        EExchangeDowloadResponse eExchangeDowloadResponse;
         Dictionary<string, byte[]> dicECurrencyList = new Dictionary<string, byte[]>();
 
-        public BaseResponse<object> ECurrencyInformation(ECurrencyRequest request, string token)
+        public BaseResponse<object> EExchangeInformation(EExchangeRequest request, string token)
         {
             string url = BaseAdapter.BaseUrl + "/v1/exchanges";
             var deserializerData2 = JsonConvert.SerializeObject(request);
@@ -29,50 +29,38 @@ namespace Izibiz.Adapter
             return deserializerData;
         }
 
-        public ECurrencyResponse ECurrencyList(string token)
+        public EExchangeResponse EExchangeList(string token)
         {
             string url = BaseAdapter.BaseUrl + "/v1/exchanges";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<ECurrencyResponse>>(responseData);
+            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EExchangeResponse>>(responseData);
             eCurrencyResponse = deserializerData.data;
             return eCurrencyResponse;
         }
 
 
-        public Dictionary<string, byte[]> ECurrencyDocument(string token, string documentType)
+        public Dictionary<string, byte[]> EExchangeDocument(string token, Enum documentType)
         {
             dicECurrencyList.Clear();
-            foreach (var eCurrency in eCurrencyResponse.contents)
+            foreach (var eExchange in eCurrencyResponse.contents)
             {
                 try
                 {
-                    string url = "";
-                    if (documentType == nameof(EI.DocumentType.XML))
-                    {
-                        url = BaseAdapter.BaseUrl + "/v1/exchanges/" + eCurrency.id + "/preview/ubl";
-                    }
-                    else if (documentType == nameof(EI.DocumentType.HTML))
-                    {
-                        url = BaseAdapter.BaseUrl + "/v1/exchanges/" + eCurrency.id + "/preview/html";
-                    }
-                    else if (documentType == nameof(EI.DocumentType.PDF))
-                    {
-                        url = BaseAdapter.BaseUrl + "/v1/exchanges/" + eCurrency.id + "/preview/pdf";
-                    }
+                    string url = BaseAdapter.BaseUrl + "/v1/exchanges/" + eExchange.id + "/preview/"+documentType.ToString().ToLower();
                     var responseData = (string)baseAdapter.HttpReqRes(token, url);
                     byte[] bytes = Encoding.ASCII.GetBytes(responseData);
-                    dicECurrencyList.Add(eCurrency.documentNo, bytes);
+                    dicECurrencyList.Add(eExchange.documentNo, bytes);
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Debug.WriteLine(eCurrency.documentNo + "mevcut değildir.");
+                    System.Diagnostics.Debug.WriteLine(eExchange.documentNo + "mevcut değildir.");
                 }
             }
             return dicECurrencyList;
         }
 
 
-        public ECurrencyDowloadResponse ECurrencySendJson(string token)
+        public EExchangeDowloadResponse EExchangeSendJson(string token)
         {
                 string url = BaseAdapter.BaseUrl + "/v1/exchanges/download/ubl";
                 object[] payloads = new object[1];
@@ -82,13 +70,13 @@ namespace Izibiz.Adapter
                 };
                 payloads[0] = payload;
                 var responseData = (string)baseAdapter.HttpReqRes(token, url,"POST",payloads);
-                var deserializerData = JsonConvert.DeserializeObject<BaseResponse<ECurrencyDowloadResponse>>(responseData);
-                eCurrencyDowloadResponse = deserializerData.data;
-                return eCurrencyDowloadResponse;
+                var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EExchangeDowloadResponse>>(responseData);
+                eExchangeDowloadResponse = deserializerData.data;
+                return eExchangeDowloadResponse;
 
         }
 
-        public BaseResponse<object> ECurrencyCompressUBL(string token,ECurrencyCompressUblRequest request)
+        public BaseResponse<object> EExchangeCompressUBL(string token,EExchangeCompressUblRequest request)
         {
             string url = BaseAdapter.BaseUrl + "/v1/exchanges/ubl";
             var responseData = (string)baseAdapter.HttpReqRes(token, url,"POST",request);

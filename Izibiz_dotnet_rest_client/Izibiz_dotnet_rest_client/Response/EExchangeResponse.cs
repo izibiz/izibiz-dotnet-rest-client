@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Izibiz.Response
 {
-    public class ECurrencyResponse
+    public class EExchangeResponse
     {
-        public ECurrency[] contents { get; set; }
+        public EExchange[] contents { get; set; }
         public object pageable { get; set; }
     }
 
-    public class ECurrency
+    public class EExchange
     {
         public int id { get; set; }
         public string documentType { get; set; }

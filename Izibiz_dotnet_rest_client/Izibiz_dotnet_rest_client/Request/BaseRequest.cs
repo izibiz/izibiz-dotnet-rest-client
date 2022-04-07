@@ -8,11 +8,11 @@ namespace Izibiz.Request
 
     public class BaseRequest
     {
-        public string documentAction { get; set; }
-        public ContentT content { get; set; }
+          public string documentAction { get; set; }
+        public Content content { get; set; }
     }
 
-    public class ContentT
+    public class Content
     {
         public string profile { get; set; }
         public string documentTypeCode { get; set; }
@@ -21,23 +21,41 @@ namespace Izibiz.Request
         public string issueDate { get; set; }
         public string issueTime { get; set; }
         public string currencyCode { get; set; }
+        public Line[] lines { get; set; }
         public Additionalreference[] additionalReferences2 { get; set; }
-        public Supplierparty supplierParty { get; set; }
-        public Customerparty customerParty { get; set; }
+        public Party supplierParty { get; set; }
+        public Party customerParty { get; set; }
         public Taxtotal taxTotal { get; set; }
         public Legalmonetarytotal legalMonetaryTotal { get; set; }
+        public string[] notes { get; set; }
     }
 
-    public class Supplierparty
+    public class Line
+    {
+        public int id { get; set; }
+        public int quantity { get; set; }
+        public string unitCode { get; set; }
+        public int lineExtensionAmount { get; set; }
+        public Taxtotal1 taxTotal { get; set; }
+        public string itemName { get; set; }
+        public int itemPrice { get; set; }
+    }
+
+    public class Party
     {
         public string schemeId { get; set; }
         public string identifier { get; set; }
         public string name { get; set; }
+        public Identification[] identifications { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
         public string centralRegistrationNo { get; set; }
         public string taxOffice { get; set; }
         public string taxRegisterNo { get; set; }
         public string headOffice { get; set; }
         public Address address { get; set; }
+        public string customerType { get; set; }
+
     }
 
     public class Address
@@ -52,48 +70,12 @@ namespace Izibiz.Request
         public string email { get; set; }
         public string telephone { get; set; }
         public string website { get; set; }
-    }
-
-    public class Customerparty
-    {
-        public string schemeId { get; set; }
-        public string identifier { get; set; }
-        public string customerType { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string taxOffice { get; set; }
-        public Address1 address { get; set; }
-    }
-
-    public class Address1
-    {
-        public string buildingName { get; set; }
-        public string buildingNumber { get; set; }
-        public string streetName { get; set; }
-        public string postalCode { get; set; }
-        public string subCity { get; set; }
-        public string city { get; set; }
-        public string country { get; set; }
-        public string email { get; set; }
-        public string telephone { get; set; }
-        public string website { get; set; }
         public string nationalityId { get; set; }
-    }
+        }
 
-    public class Address2
-    {
-        public string buildingName { get; set; }
-        public string buildingNumber { get; set; }
-        public string streetName { get; set; }
-        public string postalCode { get; set; }
-        public string subCity { get; set; }
-        public string city { get; set; }
-        public string country { get; set; }
-        public string email { get; set; }
-        public string telephone { get; set; }
-        public string website { get; set; }
-        public string nationalityId { get; set; }
-    }
+ 
+
+
 
     public class Identification
     {
@@ -138,6 +120,7 @@ namespace Izibiz.Request
         public  string issueDate { get; set; }
         public  Attachment attachment { get; set; }
         public  string documentTypeCode { get;set; }
+
     }
 
     public class Attachment

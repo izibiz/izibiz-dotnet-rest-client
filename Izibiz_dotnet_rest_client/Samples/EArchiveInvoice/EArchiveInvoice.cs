@@ -12,7 +12,7 @@ using Izibiz.Operations;
 
 namespace Samples.EArchiveInvoice
 {
-  //[Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
+ // [Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
     public class EArchiveInvoice
     {
        private readonly IzibizClient _izibizClient = new IzibizClient();
@@ -21,32 +21,32 @@ namespace Samples.EArchiveInvoice
         [Test,Order(1)]
         public void EArchiveInvoiceList()
         {
-            var request = _izibizClient.EArchiveInvoice().list(Authentication.Token);
-            Assert.NotNull(request);
+            var response = _izibizClient.EArchiveInvoice().list(Authentication.Token);
+            Assert.NotNull(response);
         }
 
         [Test, Order(2)]
         public void EArchiveInvoice_Html()
         {
-            var request = _izibizClient.EArchiveInvoice().EArchiveInvoiceHtml(Authentication.Token);
-            Assert.NotNull(request);
-            FolderOperations.SaveToDisk(nameof(EI.Type.EArchive),nameof(EI.DocumentType.HTML),request);
+            var response = _izibizClient.EArchiveInvoice().EArchiveInvoiceHtml(Authentication.Token);
+            Assert.NotNull(response);
+            FolderOperations.SaveToDisk(EI.Type.EArchive,EI.DocumentType.HTML, response);
         }
 
         
         [Test, Order(3)]
         public void EArchiveInvoiceInquiry_PDF()
         {
-            var request = _izibizClient.EArchiveInvoice().EArchiveInvoicePDF(Authentication.Token);
-            Assert.NotNull(request);
-            FolderOperations.SaveToDisk(nameof(EI.Type.EArchive), nameof(EI.DocumentType.PDF), request);
+            var response = _izibizClient.EArchiveInvoice().EArchiveInvoicePDF(Authentication.Token);
+            Assert.NotNull(response);
+            FolderOperations.SaveToDisk(EI.Type.EArchive, EI.DocumentType.PDF, response);
         }
 
         [Test, Order(4)]
         public void EArchiveInvoiceStatus()
         {
-            var request = _izibizClient.EArchiveInvoice().EArchiveStatus(Authentication.Token);
-            Assert.NotNull(request);
+            var response = _izibizClient.EArchiveInvoice().EArchiveStatus(Authentication.Token);
+            Assert.NotNull(response);
         }
 
     }

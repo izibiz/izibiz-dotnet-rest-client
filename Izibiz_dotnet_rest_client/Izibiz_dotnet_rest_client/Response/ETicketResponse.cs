@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Izibiz.Response
 {
-    public class ETicketResponse
+    public class ECheckResponse
     {
 
        // public string fileName { get; set; }

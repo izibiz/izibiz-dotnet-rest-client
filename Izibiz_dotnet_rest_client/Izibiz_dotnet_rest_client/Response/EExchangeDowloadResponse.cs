@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Izibiz.Response
 {
-    public class ECurrencyDowloadResponse
+    public class EExchangeDowloadResponse
     {
         public string filename { get; set; }
         public byte[] content { get; set; }

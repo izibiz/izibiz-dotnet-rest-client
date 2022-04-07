@@ -18,50 +18,50 @@ namespace Samples.CreditNotes
        private readonly IzibizClient _izibizClient = new IzibizClient();
 
         [Test, Order(1)]
-        public void CreditNoteList()
+        public void GetCreditNoteList()
         {
-            var request = _izibizClient.CreditNote().List(Authentication.Token);
-            Assert.NotNull(request);
-            foreach (var creditNote in request.contents)
+            var response = _izibizClient.CreditNote().List(Authentication.Token);
+            Assert.NotNull(response);
+            foreach (var creditNote in response.contents)
             {
-                    System.Diagnostics.Debug.WriteLine("Fatura uuid : " + creditNote.uuid + "Fatura ID : " + creditNote.documentNo); 
+                    System.Diagnostics.Debug.WriteLine("Mustahsil uuid : " + creditNote.uuid + "Mustahsil ID : " + creditNote.documentNo); 
             }
-            System.Diagnostics.Debug.WriteLine(request.pageable);
+            System.Diagnostics.Debug.WriteLine(response.pageable);
         }
 
         [Test, Order(2)]
         public void CreditNoteInquiry_PDF()
         {
-            var request = _izibizClient.CreditNote().CreditNoteDocument(Authentication.Token,nameof(EI.DocumentType.PDF));
-            Assert.NotNull(request);
-            Assert.IsTrue(request.Count() > 0);
-            FolderOperations.SaveToDisk(nameof(EI.Type.CreditNote), nameof(EI.DocumentType.PDF), request);
+            var response = _izibizClient.CreditNote().GetCreditNoteDocument(Authentication.Token,EI.DocumentType.PDF);
+            Assert.NotNull(response);
+            Assert.IsTrue(response.Count() > 0);
+            FolderOperations.SaveToDisk(EI.Type.CreditNote,EI.DocumentType.PDF, response);
         }
 
         [Test, Order(3)]
         public void CreditNoteInquiry_HTML()
         {
-            var request = _izibizClient.CreditNote().CreditNoteDocument(Authentication.Token,nameof(EI.DocumentType.HTML));
-            Assert.NotNull(request);
-            Assert.IsTrue(request.Count() > 0);
-            FolderOperations.SaveToDisk(nameof(EI.Type.CreditNote), nameof(EI.DocumentType.HTML), request);
+            var response = _izibizClient.CreditNote().GetCreditNoteDocument(Authentication.Token,EI.DocumentType.HTML);
+            Assert.NotNull(response);
+            Assert.IsTrue(response.Count() > 0);
+            FolderOperations.SaveToDisk(EI.Type.CreditNote, EI.DocumentType.HTML, response);
         }
 
         [Test, Order(4)]
         public void CreditNoteInquiry_XML()
         {
-            var request = _izibizClient.CreditNote().CreditNoteDocument(Authentication.Token,nameof(EI.DocumentType.XML));
-            Assert.NotNull(request);
-            Assert.IsTrue(request.Count() > 0);
-            FolderOperations.SaveToDisk(nameof(EI.Type.CreditNote), nameof(EI.DocumentType.XML), request);
+            var response = _izibizClient.CreditNote().GetCreditNoteDocument(Authentication.Token,EI.DocumentType.XML);
+            Assert.NotNull(response);
+            Assert.IsTrue(response.Count() > 0);
+            FolderOperations.SaveToDisk(EI.Type.CreditNote, EI.DocumentType.XML, response);
         }
 
         [Test, Order(5)]
         public void EArchiveInvoiceStatus()
         {
-            var request = _izibizClient.CreditNote().CreditNoteStatus(Authentication.Token);
-            Assert.NotNull(request);
-            System.Diagnostics.Debug.WriteLine("Müstahsil Durumları : " + request.data);
+            var response = _izibizClient.CreditNote().GetCreditNoteStatus(Authentication.Token);
+            Assert.NotNull(response);
+            System.Diagnostics.Debug.WriteLine("Müstahsil Durumları : " + response.data);
 
         }
 

@@ -49,12 +49,12 @@
     <Compile Include="Authentication.cs" />
     <Compile Include="CreditNotes\CreditNote.cs" />
     <Compile Include="EArchiveInvoice\EArchiveInvoice.cs" />
-    <Compile Include="ECurrency\ECurrency.cs" />
+    <Compile Include="EExchange\EExchange.cs" />
     <Compile Include="EDespatch\EDespatch.cs" />
     <Compile Include="EInvoice\EInvoiceOutbox.cs" />
     <Compile Include="EInvoice\EInvoice.cs" />
     <Compile Include="ESmm\ESmm.cs" />
-    <Compile Include="ETicket\ETicket.cs" />
+    <Compile Include="ECheck\ECheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceiptDespatch\EDespatchReceipt.cs" />
   </ItemGroup>

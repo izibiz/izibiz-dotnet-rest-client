@@ -47,7 +47,7 @@ namespace Izibiz.Adapter
         }
 
 
-        public Dictionary<string, byte[]> EDespatchReceiptDocument(string token,string documentType)
+        public Dictionary<string, byte[]> EDespatchReceiptDocument(string token,Enum documentType)
         {
             dicEDespacthReceiptList.Clear();
             foreach (var inboxUbl in eDespatchReceiptResponse.contents)
@@ -55,14 +55,14 @@ namespace Izibiz.Adapter
                 try
                 {
                     string url = "";
-                    if (documentType == nameof(EI.DocumentType.XML))
+                    if (documentType.Equals(EI.DocumentType.XML))
                     {
                          url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/inbox/" + inboxUbl.id + "/preview/ubl";
-                    }else if(documentType == nameof(EI.DocumentType.HTML))
+                    }else if(documentType.Equals(EI.DocumentType.HTML))
                     {
                          url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/inbox/" + inboxUbl.id + "/html";
                     }
-                    else if (documentType == nameof(EI.DocumentType.PDF))
+                    else if (documentType.Equals(EI.DocumentType.PDF))
                     {
                          url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/inbox/" + inboxUbl.id + "/pdf";
                     }
@@ -81,7 +81,7 @@ namespace Izibiz.Adapter
 
         public BaseResponse<object> EDespatchReceiptStatus(string token)
         {
-            var deserializerData = baseAdapter.Status(token, nameof(EI.Type.EDespatchReceipt),nameof(EI.Status.Inbox));
+            var deserializerData = baseAdapter.Status(token,EI.Type.EDespatchReceipt,EI.Status.Inbox);
             return deserializerData;
         }
 
@@ -99,36 +99,36 @@ namespace Izibiz.Adapter
         }
 
 
-        public Dictionary<string, byte[]> EDespatchReceiptDocument_Outbox(string token, string documentType)
-        {
-            dicEDespacthReceiptList.Clear();
-            foreach (var outboxUbl in eDespatchReceiptResponseOutbox.contents)
-            {
-                try
-                {
-                    string url = "";
-                    if (documentType == nameof(EI.DocumentType.XML))
-                    {
-                        url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox/" + outboxUbl.id + "/preview/ubl";
-                    }
-                    else if (documentType == nameof(EI.DocumentType.HTML))
-                    {
-                        url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox/" + outboxUbl.id + "/html";
-                    }
-                    else if (documentType == nameof(EI.DocumentType.PDF))
-                    {
-                        url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox/" + outboxUbl.id + "/pdf";
-                    }
-                    var responseData = (string)baseAdapter.HttpReqRes(token, url);
-                    byte[] bytes = Encoding.ASCII.GetBytes(responseData);
-                    dicEDespacthReceiptList.Add(outboxUbl.documentNo, bytes);
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine(outboxUbl.documentNo + "mevcut değildir.");
-                }
-            }
-            return dicEDespacthReceiptList;
-        }
+        //public Dictionary<string, byte[]> EDespatchReceiptDocument_Outbox(string token, Enum documentType)
+        //{
+        //    dicEDespacthReceiptList.Clear();
+        //    foreach (var outboxUbl in eDespatchReceiptResponseOutbox.contents)
+        //    {
+        //        try
+        //        {
+        //            string url = "";
+        //            if (documentType.Equals(EI.DocumentType.XML))
+        //            {
+        //                url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox/" + outboxUbl.id + "/preview/ubl";
+        //            }
+        //            else if (documentType.Equals(EI.DocumentType.HTML))
+        //            {
+        //                url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox/" + outboxUbl.id + "/html";
+        //            }
+        //            else if (documentType.Equals(EI.DocumentType.PDF))
+        //            {
+        //                url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox/" + outboxUbl.id + "/pdf";
+        //            }
+        //            var responseData = (string)baseAdapter.HttpReqRes(token, url);
+        //            byte[] bytes = Encoding.ASCII.GetBytes(responseData);
+        //            dicEDespacthReceiptList.Add(outboxUbl.documentNo, bytes);
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            System.Diagnostics.Debug.WriteLine(outboxUbl.documentNo + "mevcut değildir.");
+        //        }
+        //    }
+        //    return dicEDespacthReceiptList;
+        //}
     }
 }

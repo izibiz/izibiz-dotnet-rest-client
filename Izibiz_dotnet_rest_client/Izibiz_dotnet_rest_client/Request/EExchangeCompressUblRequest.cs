@@ -6,7 +6,7 @@ using System.Text;
 namespace Izibiz.Request
 {
 
-    public class ECurrencyCompressUblRequest
+    public class EExchangeCompressUblRequest
     {
         public string documentAction { get; set; }
         public bool compressed { get; set; }

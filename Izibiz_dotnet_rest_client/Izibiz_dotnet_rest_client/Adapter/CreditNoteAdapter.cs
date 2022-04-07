@@ -27,7 +27,7 @@ namespace Izibiz.Adapter
         }
 
 
-        public Dictionary<string, byte[]> CreditNoteDocument(string token, string documentType)
+        public Dictionary<string, byte[]> GetCreditNoteDocument(string token, Enum documentType)
         {
             dicCreditNoteList.Clear();
             foreach (var creditnote in creditNoteResponse.contents)
@@ -35,15 +35,15 @@ namespace Izibiz.Adapter
                 try
                 {
                     string url = "";
-                    if (documentType == nameof(EI.DocumentType.XML))
+                    if (documentType.Equals(EI.DocumentType.XML))
                     {
                         url = BaseAdapter.BaseUrl + "/v1/ecreditnotes/" + creditnote.id + "/preview/ubl";
                     }
-                    else if (documentType == nameof(EI.DocumentType.HTML))
+                    else if (documentType.Equals(EI.DocumentType.HTML))
                     {
                         url = BaseAdapter.BaseUrl + "/v1/ecreditnotes/" + creditnote.id + "/preview/html";
                     }
-                    else if (documentType == nameof(EI.DocumentType.PDF))
+                    else if (documentType.Equals(EI.DocumentType.PDF))
                     {
                         url = BaseAdapter.BaseUrl + "/v1/ecreditnotes/" + creditnote.id + "/preview/pdf";
                     }
@@ -59,9 +59,9 @@ namespace Izibiz.Adapter
             return dicCreditNoteList;
         }
 
-         public BaseResponse<object> CreditNoteStatus(string token)
+         public BaseResponse<object> GetCreditNoteStatus(string token)
         {
-            var deserializerData = baseAdapter.Status(token, nameof(EI.Type.CreditNote));
+            var deserializerData = baseAdapter.Status(token, EI.Type.CreditNote);
             return deserializerData;
         }
 

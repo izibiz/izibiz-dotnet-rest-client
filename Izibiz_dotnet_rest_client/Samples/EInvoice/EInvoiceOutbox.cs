@@ -12,80 +12,80 @@ using Izibiz.Operations;
 
 namespace Samples.EInvoice
 {
-   // [Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
+    [Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
     public class EInvoiceOutbox
     {
        private readonly IzibizClient _izibizClient = new IzibizClient();
        Dictionary<string, EInvoiceResponse> dictionary = new Dictionary<string, EInvoiceResponse>();
 
         [Test,Order(1)]//Belirli bir tarih aralığındaki faturaları getirme
-        public void EInvoicePendingApprovalList_Outbox()
+        public void GetEInvoicePendingApprovalList_Outbox()
         {
-            var request = _izibizClient.EInvoice().PendingApprovalEInvoice_Outbox(Authentication.Token);
-            dictionary.Add("PendingApprovalEInvoice", request);
-            Assert.NotNull(request.contents);
+            var response = _izibizClient.EInvoice().PendingApprovalEInvoice_Outbox(Authentication.Token);
+            dictionary.Add("PendingApprovalEInvoice", response);
+            Assert.NotNull(response.contents);
             System.Diagnostics.Debug.WriteLine("Onay Bekleyen E-Fatura Listesi");
-            foreach (var req in request.contents)
+            foreach (var req in response.contents)
             {
                 System.Diagnostics.Debug.WriteLine("Fatura uuid : "+ req.uuid + "Fatura ID : "+req.documentNo);
             }
 
-            System.Diagnostics.Debug.WriteLine(request.pageable);
+            System.Diagnostics.Debug.WriteLine(response.pageable);
         }
 
         [Test,Order(2)]//Cevap Teslim Edilemeyen Faturalar
-        public void EInvoiceUndeliverableList_Outbox()
+        public void GetEInvoiceUndeliverableList_Outbox()
         {
-            var request = _izibizClient.EInvoice().UndeliverableEInvoiceList_Outbox(Authentication.Token);
-            dictionary.Add("EInvoiceUndeliverableList_Outbox", request);
-            Assert.NotNull(request.contents);
+            var response = _izibizClient.EInvoice().UndeliverableEInvoiceList_Outbox(Authentication.Token);
+            dictionary.Add("EInvoiceUndeliverableList_Outbox", response);
+            Assert.NotNull(response.contents);
             System.Diagnostics.Debug.WriteLine("Cevap Teslim Edilemeyen Fatura Listesi");
-            foreach (var req in request.contents)
+            foreach (var req in response.contents)
             {
                 System.Diagnostics.Debug.WriteLine("Fatura uuid : " + req.uuid + "Fatura ID : " + req.documentNo);
             }
 
-            System.Diagnostics.Debug.WriteLine(request.pageable);
+            System.Diagnostics.Debug.WriteLine(response.pageable);
         }
 
         [Test, Order(3)]//Reddedilen Faturalar 
-        public void EInvoiceRejected_Outbox()
+        public void GetEInvoiceRejected_Outbox()
         {
-            var request = _izibizClient.EInvoice().RejectedEInvoiceList_Outbox(Authentication.Token);
-            dictionary.Add("EInvoiceRejected_Outbox", request);
-            Assert.NotNull(request.contents);
+            var response = _izibizClient.EInvoice().RejectedEInvoiceList(Authentication.Token, EI.Status.Outbox);
+            dictionary.Add("EInvoiceRejected_Outbox", response);
+            Assert.NotNull(response.contents);
             System.Diagnostics.Debug.WriteLine("Reddedilen Fatura Listesi");
-            foreach (var req in request.contents)
+            foreach (var req in response.contents)
             {
                 System.Diagnostics.Debug.WriteLine("Fatura uuid : " + req.uuid + "Fatura ID : " + req.documentNo);
             }
-            System.Diagnostics.Debug.WriteLine(request.pageable);
+            System.Diagnostics.Debug.WriteLine(response.pageable);
         }
 
         [Test, Order(4)]//Giden Faturalar Ubl 
-        public void EInvoiceOutbox_Ubl()
+        public void GetEInvoiceOutbox_Ubl()
         {
-            var request = _izibizClient.EInvoice().EInvoiceUbl_Outbox(Authentication.Token);
-            Assert.NotNull(request);
-            FolderOperations.SaveToDisk(nameof(EI.Type.EInvoice), nameof(EI.DocumentType.XML), request);
+            var response = _izibizClient.EInvoice().GetEInvoiceDocument_Outbox(Authentication.Token,EI.DocumentType.UBL);
+            Assert.NotNull(response);
+            FolderOperations.SaveToDisk(EI.Type.EInvoice, EI.DocumentType.XML, response);
         }
 
 
-        [Test, Order(5)]//Giden Faturalar Ubl 
-        public void EInvoiceOutbox_PDF()
+        [Test, Order(5)]//Giden Faturalar PDF
+        public void GetEInvoiceOutbox_PDF()
         {
-            var request = _izibizClient.EInvoice().EInvoicePDF_Outbox(Authentication.Token);
-            Assert.NotNull(request);
-            FolderOperations.SaveToDisk(nameof(EI.Type.EInvoice), nameof(EI.DocumentType.PDF), request);
+            var response = _izibizClient.EInvoice().GetEInvoiceDocument_Outbox(Authentication.Token, EI.DocumentType.PDF);
+            Assert.NotNull(response);
+            FolderOperations.SaveToDisk(EI.Type.EInvoice, EI.DocumentType.PDF, response);
         }
 
 
         [Test, Order(6)]//Giden Fatura durumları
-        public void EInvoiceInboxStatus()
+        public void GetEInvoiceOutboxStatus()
         {
-            var request = _izibizClient.EInvoice().EInvoiceStatus(Authentication.Token, nameof(EI.Status.Outbox));
-            Assert.NotNull(request);
-            System.Diagnostics.Debug.WriteLine(request);
+            var response = _izibizClient.EInvoice().EInvoiceStatus(Authentication.Token, EI.Status.Outbox);
+            Assert.NotNull(response);
+            System.Diagnostics.Debug.WriteLine(response);
         }
 
     }

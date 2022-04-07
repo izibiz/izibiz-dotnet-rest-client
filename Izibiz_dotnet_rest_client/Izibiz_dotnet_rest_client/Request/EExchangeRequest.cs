@@ -6,13 +6,13 @@ using System.Text;
 namespace Izibiz.Request
 {
 
-    public class ECurrencyRequest
+    public class EExchangeRequest
     {
         public string documentAction = "SEND";
-        public ECurrrencyContent content { get; set; }
+        public EExchangeContent content { get; set; }
     }
 
-    public class ECurrrencyContent : ContentT
+    public class EExchangeContent : Content
     {
         public Additionalreference2[] additionalReferences { get; set; }
         public Paymentmean[] paymentMeans = new Paymentmean[] {

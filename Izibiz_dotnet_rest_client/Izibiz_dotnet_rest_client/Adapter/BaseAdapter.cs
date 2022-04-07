@@ -1,4 +1,5 @@
-﻿using Izibiz.Response;
+﻿using Izibiz.Operations;
+using Izibiz.Response;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Izibiz.Adapter
 {
     public class BaseAdapter
     {
-        public const string BaseUrl = "https://apitest.izibiz.com.tr";
+        public const string BaseUrl = "https://apidev.izibiz.com.tr";
         public string endDate = DateTime.Now.ToString("yyyy-MM-dd");
         public string startDate = DateTime.Now.AddYears(-2).ToString("yyyy-MM-dd");
 
@@ -39,6 +40,10 @@ namespace Izibiz.Adapter
                     Stream stream = httpWebRequest.GetRequestStream();
                     stream.Write(serialisedByte, 0, serialisedByte.Length);
                     stream.Close();
+                }else if (requestType == "DELETE")
+                {
+                    httpWebRequest.Method = "DELETE";
+                    httpWebRequest.Accept = "*/*";
                 }
 
                 HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
@@ -58,36 +63,36 @@ namespace Izibiz.Adapter
         }
 
 
-        public BaseResponse<object> Status(string token, string type, string status = "")
+        public BaseResponse<object> Status(string token, Enum type, Enum status=null)
         {
             string url = "";
-            if (type == "EInvoice")
+            if (type.Equals(EI.Type.EInvoice))
             {
-                if (status == "Inbox")
+                if (status.Equals(EI.Status.Inbox))
                 {
                     url = BaseAdapter.BaseUrl + "/v1/einvoices/inbox/lookup-statuses";
                 }
-                else if (status == "Outbox")
+                else if (status.Equals(EI.Status.Outbox))
                 {
                     url = BaseAdapter.BaseUrl + "/v1/einvoices/outbox/lookup-statuses";
                 }
             }
-            else if (type == "EDespatch")
+            else if (type.Equals(EI.Type.EDespatch))
             {
-                if (status == "Inbox")
+                if (status.Equals(EI.Status.Inbox))
                 { url = BaseAdapter.BaseUrl + "/v1/edespatches/inbox/lookup-statuses"; }
                 else
                 {
                     url = BaseAdapter.BaseUrl + "/v1/edespatches/outbox/lookup-statuses";
                 }
             }
-            else if (type == "EArchive")
+            else if (type.Equals(EI.Type.EArchive))
             {
                 url = BaseAdapter.BaseUrl + "/v1/earchives/lookup-statuses";
             }
-            else if (type == "EDespatchReceipt")
+            else if (type.Equals(EI.Type.EDespatchReceipt))
             {
-                if (status == "Inbox")
+                if (status.Equals(EI.Status.Inbox))
                 {
                     url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/inbox/lookup-statuses";
                 }
@@ -96,15 +101,15 @@ namespace Izibiz.Adapter
                     url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox/lookup-statuses";
                 }
             }
-            else if (type == "CreditNote")
+            else if (type.Equals(EI.Type.CreditNote))
             {
                 url = BaseAdapter.BaseUrl + "/v1/ecreditnotes/lookup-statuses";
             }
-            else if (type == "ESmm")
+            else if (type.Equals(EI.Type.ESmm))
             {
                 url = BaseAdapter.BaseUrl + "/v1/esmms/lookup-statuses";
             }
-            else if (type == "ETicket")
+            else if (type.Equals(EI.Type.ECheck))
             {
                 url = BaseAdapter.BaseUrl + "/v1/echecks/lookup-statuses";
             }

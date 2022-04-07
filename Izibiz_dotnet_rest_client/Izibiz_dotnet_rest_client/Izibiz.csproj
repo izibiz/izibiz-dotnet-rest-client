@@ -45,8 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapter\ECurrencyAdapter.cs" />
-    <Compile Include="Adapter\ETicketAdapter.cs" />
+    <Compile Include="Adapter\EExchangeAdapter.cs" />
+    <Compile Include="Adapter\ECheckAdapter.cs" />
     <Compile Include="Adapter\ESmmAdapter.cs" />
     <Compile Include="Adapter\EDespatchAdapter.cs" />
     <Compile Include="Adapter\EDespatchReceiptAdapter .cs" />
@@ -59,17 +59,16 @@
     <Compile Include="Operations\EI.cs" />
     <Compile Include="Operations\FolderOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Request\Class1.cs" />
-    <Compile Include="Request\ECurrencyCompressUblRequest.cs" />
-    <Compile Include="Request\ECurrencyRequest.cs" />
+    <Compile Include="Request\EExchangeCompressUblRequest.cs" />
+    <Compile Include="Request\EExchangeRequest.cs" />
     <Compile Include="Request\AuthRequest.cs" />
-    <Compile Include="Request\ETicketRequest.cs" />
+    <Compile Include="Request\ECheckRequest.cs" />
     <Compile Include="Request\BaseRequest.cs" />
     <Compile Include="Response\BaseResponse.cs" />
     <Compile Include="Response\AuthResponse.cs" />
     <Compile Include="Response\ETicketResponse.cs" />
-    <Compile Include="Response\ECurrencyDowloadResponse.cs" />
-    <Compile Include="Response\ECurrencyResponse .cs" />
+    <Compile Include="Response\EExchangeDowloadResponse.cs" />
+    <Compile Include="Response\EExchangeResponse.cs" />
     <Compile Include="Response\ESmmResponse.cs" />
     <Compile Include="Response\EDespatchReceiptResponse.cs" />
     <Compile Include="Response\EArchiveInvoiceGibIvdResponse.cs" />

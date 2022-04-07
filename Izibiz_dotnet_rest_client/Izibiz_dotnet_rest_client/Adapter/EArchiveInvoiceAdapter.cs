@@ -75,7 +75,7 @@ namespace Izibiz.Adapter
 
         public BaseResponse<object> EArchiveStatus(string token)
         {   
-            var deserializerData = baseAdapter.Status(token, nameof(EI.Type.EArchive));
+            var deserializerData = baseAdapter.Status(token, EI.Type.EArchive);
             return deserializerData;
         }
 

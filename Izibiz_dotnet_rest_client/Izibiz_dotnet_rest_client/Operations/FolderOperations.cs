@@ -10,45 +10,45 @@ namespace Izibiz.Operations
 {
     public class FolderOperations
     {
-        public static string FilePath(string type)
+        public static string FolderPath(Enum type)
         {
             string folderpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            if (type == nameof(EI.Type.EInvoice))
+            if (type.Equals(EI.Type.EInvoice))
             {
                 return string.Format("{0}{1}", folderpath, @"\EFatura\"); ;
             }
-            else if (type == nameof(EI.Type.EArchive))
+            else if (type.Equals(EI.Type.EArchive))
             {
-                return string.Format("{0}{1}", folderpath, @"\ArşivFatura\");
+                return string.Format("{0}{1}", folderpath, @"\ArsivFatura\");
             }
-            else if (type == nameof(EI.Type.EDespatch))
+            else if (type.Equals(EI.Type.EDespatch))
             {
                 return string.Format("{0}{1}", folderpath, @"\EIrsaliye\");
             }
-            else if (type == nameof(EI.Type.EDespatchReceipt))
+            else if (type.Equals(EI.Type.EDespatchReceipt))
             {
-                return string.Format("{0}{1}", folderpath, @"\EIrsaliyeYanıtı\");
+                return string.Format("{0}{1}", folderpath, @"\EIrsaliyeYaniti\");
             }
-            else if (type == nameof(EI.Type.CreditNote))
+            else if (type.Equals(EI.Type.CreditNote))
             {
-                return string.Format("{0}{1}", folderpath, @"\Müstahsil\");
+                return string.Format("{0}{1}", folderpath, @"\Mustahsil\");
             }
-            else if (type == nameof(EI.Type.ESmm))
+            else if (type.Equals(EI.Type.ESmm))
             {
                 return string.Format("{0}{1}", folderpath, @"\Smm\");
             }
-            else if (type == nameof(EI.Type.ECurrency))
+            else if (type.Equals(EI.Type.EExchange))
             {
-                return string.Format("{0}{1}", folderpath, @"\EDöviz\");
+                return string.Format("{0}{1}", folderpath, @"\EDoviz\");
             }
-            else if (type == nameof(EI.Type.ETicket))
+            else if (type.Equals(EI.Type.ECheck))
             {
                 return string.Format("{0}{1}", folderpath, @"\EAdisyon\");
             }
 
             return null;
         }
-        public static void FileYesNo(String path)
+        public static void CreateIfFileNotExists(String path)
         {
             if (!Directory.Exists(path))
             {
@@ -56,15 +56,15 @@ namespace Izibiz.Operations
             }
         }
 
-        public static void SaveToDisk(string type, string documentType, Dictionary<string, byte[]> text)
+        public static void SaveToDisk(Enum type, Enum documentType, Dictionary<string, byte[]> text)
         {
-            var filePath = FilePath(type);
+            var folderPath = FolderPath(type);
 
-            FileYesNo(filePath);
+            CreateIfFileNotExists(folderPath);
 
             foreach (var invoice in text)
             {
-                File.WriteAllBytes(filePath + invoice.Key + "." + documentType.ToLower(), invoice.Value);
+                File.WriteAllBytes(folderPath + invoice.Key + "." + documentType.ToString().ToLower(), invoice.Value);
             }
         }
 
