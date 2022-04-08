@@ -67,7 +67,7 @@
     <Compile Include="Response\BaseResponse.cs" />
     <Compile Include="Response\AuthResponse.cs" />
     <Compile Include="Response\ETicketResponse.cs" />
-    <Compile Include="Response\EExchangeDowloadResponse.cs" />
+    <Compile Include="Response\CheckandExchangeResponse.cs" />
     <Compile Include="Response\EExchangeResponse.cs" />
     <Compile Include="Response\ESmmResponse.cs" />
     <Compile Include="Response\EDespatchReceiptResponse.cs" />

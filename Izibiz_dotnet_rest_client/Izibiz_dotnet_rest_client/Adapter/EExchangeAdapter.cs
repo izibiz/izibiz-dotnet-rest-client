@@ -15,7 +15,7 @@ namespace Izibiz.Adapter
     {
         BaseAdapter baseAdapter = new BaseAdapter();
         EExchangeResponse eCurrencyResponse;
-        EExchangeDowloadResponse eExchangeDowloadResponse;
+        CheckandExchangeResponse eExchangeDowloadResponse;
         Dictionary<string, byte[]> dicECurrencyList = new Dictionary<string, byte[]>();
 
         public BaseResponse<object> EExchangeInformation(EExchangeRequest request, string token)
@@ -60,7 +60,7 @@ namespace Izibiz.Adapter
         }
 
 
-        public EExchangeDowloadResponse EExchangeSendJson(string token)
+        public CheckandExchangeResponse EExchangeSendJson(string token)
         {
                 string url = BaseAdapter.BaseUrl + "/v1/exchanges/download/ubl";
                 object[] payloads = new object[1];
@@ -70,7 +70,7 @@ namespace Izibiz.Adapter
                 };
                 payloads[0] = payload;
                 var responseData = (string)baseAdapter.HttpReqRes(token, url,"POST",payloads);
-                var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EExchangeDowloadResponse>>(responseData);
+                var deserializerData = JsonConvert.DeserializeObject<BaseResponse<CheckandExchangeResponse>>(responseData);
                 eExchangeDowloadResponse = deserializerData.data;
                 return eExchangeDowloadResponse;
 

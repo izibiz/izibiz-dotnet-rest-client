@@ -16,12 +16,31 @@ namespace Izibiz.Adapter
 
         BaseAdapter baseAdapter = new BaseAdapter();
         ECheckResponse eTicketResponse;
+        CheckandExchangeResponse eCheckDowloadResponse;
         ECheckResponse eTicketResponseList;
         Dictionary<string, byte[]> dicTicketList = new Dictionary<string, byte[]>();
 
         public ECheckAdapter()
         {
 
+        }
+
+
+        public CheckandExchangeResponse ECheckDownload(string token,Enum documenttype)
+        {
+            string url = BaseAdapter.BaseUrl + "/v1/echecks/download/" + documenttype.ToString().ToLower();
+            eCheckDowloadResponse = null;
+            object[] payloads = new object[1];
+            var payload = new
+            {
+                id = eTicketResponseList.contents[0].id
+            };
+            payloads[0] = payload;
+            var responseData = (string)baseAdapter.HttpReqRes(token, url, "POST", payloads);
+            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<CheckandExchangeResponse>>(responseData);
+            eCheckDowloadResponse = deserializerData.data;
+            return eCheckDowloadResponse;
+   
         }
 
         public string ECheckDelete(string token)

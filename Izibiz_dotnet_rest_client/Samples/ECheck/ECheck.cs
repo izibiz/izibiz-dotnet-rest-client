@@ -246,14 +246,42 @@ namespace Samples.ECheck
             System.Diagnostics.Debug.WriteLine(" E-Adisyon Durum Sorgulama : " + response.data);
         }
 
-        [Test, Order(6)]
+        [Test, Order(9)]
         public void ECheckDelete()
         {
+           
             var response = _izibizClient.ECheck().ECheckDelete(Authentication.Token);
             Assert.NotNull(response);
             System.Diagnostics.Debug.WriteLine(response);
         }
 
+
+        [Test, Order(6)]
+        public void ECheckDownloadUbl()
+        {
+            var response = _izibizClient.ECheck().ECheckDownload(Authentication.Token,EI.DocumentType.UBL);
+            Assert.NotNull(response);
+            byte[] content = FolderOperations.DecompressZip(response.content);
+            File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\EAdisyon\\" + response.filename.Replace(".zip", ".xml").ToString(), content);
+        }
+
+        [Test, Order(7)]
+        public void ECheckDownloadHtml()
+        {
+            var response = _izibizClient.ECheck().ECheckDownload(Authentication.Token, EI.DocumentType.HTML);
+            Assert.NotNull(response);
+            byte[] content = FolderOperations.DecompressZip(response.content);
+            File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\EAdisyon\\" + response.filename.Replace(".zip", ".html").ToString(), content);
+        }
+
+        [Test, Order(8)]
+        public void ECheckDownloadPdf()
+        {
+            var response = _izibizClient.ECheck().ECheckDownload(Authentication.Token, EI.DocumentType.PDF);
+            Assert.NotNull(response);
+            byte[] content = FolderOperations.DecompressZip(response.content);
+            File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\EAdisyon\\" + response.filename.Replace(".zip", ".pdf").ToString(), content);
+        }
 
         [Test, Order(2)]
         public void GetECheckInquiry_Html()
