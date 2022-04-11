@@ -13,7 +13,7 @@ namespace Izibiz.Adapter
 {
     public class BaseAdapter
     {
-        public const string BaseUrl = "https://apidev.izibiz.com.tr";
+        public const string BaseUrl = "https://apitest.izibiz.com.tr";
         public string endDate = DateTime.Now.ToString("yyyy-MM-dd");
         public string startDate = DateTime.Now.AddYears(-2).ToString("yyyy-MM-dd");
 

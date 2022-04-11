@@ -12,7 +12,7 @@ using Izibiz.Operations;
 
 namespace Samples.CreditNotes
 {
-  // [Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
+   //[Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
     public class CreditNote
     {
        private readonly IzibizClient _izibizClient = new IzibizClient();

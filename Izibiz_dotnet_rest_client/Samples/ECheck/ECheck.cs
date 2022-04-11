@@ -12,10 +12,11 @@ using Izibiz.Operations;
 
 namespace Samples.ECheck
 {
-     //[Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
+   // [Ignore("Waiting for Joe to fix his bugs", Until = "2022-07-31 12:00:00Z")]
     public class ECheck
     {
         private readonly IzibizClient _izibizClient = new IzibizClient();
+        string eCheckPath;
        // BaseRequest ETicketRequest;
 
         [Test, Order(1)]
@@ -262,7 +263,9 @@ namespace Samples.ECheck
             var response = _izibizClient.ECheck().ECheckDownload(Authentication.Token,EI.DocumentType.UBL);
             Assert.NotNull(response);
             byte[] content = FolderOperations.DecompressZip(response.content);
-            File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\EAdisyon\\" + response.filename.Replace(".zip", ".xml").ToString(), content);
+            eCheckPath = FolderOperations.FolderPath(EI.Type.ECheck);
+            FolderOperations.CreateIfFileNotExists(eCheckPath);
+            File.WriteAllBytes(eCheckPath+"\\"+ response.filename.Replace(".zip", ".xml").ToString(), content);
         }
 
         [Test, Order(7)]
@@ -271,7 +274,7 @@ namespace Samples.ECheck
             var response = _izibizClient.ECheck().ECheckDownload(Authentication.Token, EI.DocumentType.HTML);
             Assert.NotNull(response);
             byte[] content = FolderOperations.DecompressZip(response.content);
-            File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\EAdisyon\\" + response.filename.Replace(".zip", ".html").ToString(), content);
+            File.WriteAllBytes(eCheckPath+"\\" + response.filename.Replace(".zip", ".html").ToString(), content);
         }
 
         [Test, Order(8)]
@@ -280,7 +283,7 @@ namespace Samples.ECheck
             var response = _izibizClient.ECheck().ECheckDownload(Authentication.Token, EI.DocumentType.PDF);
             Assert.NotNull(response);
             byte[] content = FolderOperations.DecompressZip(response.content);
-            File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\EAdisyon\\" + response.filename.Replace(".zip", ".pdf").ToString(), content);
+            File.WriteAllBytes(eCheckPath + "\\" + response.filename.Replace(".zip", ".pdf").ToString(), content);
         }
 
         [Test, Order(2)]

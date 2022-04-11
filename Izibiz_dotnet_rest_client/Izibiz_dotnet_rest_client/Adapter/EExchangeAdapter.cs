@@ -14,18 +14,17 @@ namespace Izibiz.Adapter
     public class EExchangeAdapter
     {
         BaseAdapter baseAdapter = new BaseAdapter();
-        EExchangeResponse eCurrencyResponse;
-        CheckandExchangeResponse eExchangeDowloadResponse;
-        Dictionary<string, byte[]> dicECurrencyList = new Dictionary<string, byte[]>();
+        EExchangeResponse eExchangeResponse;
+        //CheckandExchangeResponse eExchangeDowloadResponse;
+        Dictionary<string, byte[]> dicEExchangeList = new Dictionary<string, byte[]>();
 
         public BaseResponse<object> EExchangeInformation(EExchangeRequest request, string token)
         {
             string url = BaseAdapter.BaseUrl + "/v1/exchanges";
-            var deserializerData2 = JsonConvert.SerializeObject(request);
+            //var deserializerData2 = JsonConvert.SerializeObject(request);
 
             var responseData = (string)baseAdapter.HttpReqRes(token, url, "POST", request);
             var deserializerData = JsonConvert.DeserializeObject<BaseResponse<object>>(responseData);
-            //eCurrencyResponse = deserializerData.data;
             return deserializerData;
         }
 
@@ -33,30 +32,29 @@ namespace Izibiz.Adapter
         {
             string url = BaseAdapter.BaseUrl + "/v1/exchanges";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EExchangeResponse>>(responseData);
-            eCurrencyResponse = deserializerData.data;
-            return eCurrencyResponse;
+            eExchangeResponse = FolderOperations.BaseDeserialize<EExchangeResponse>(responseData);
+            return eExchangeResponse;
         }
 
 
         public Dictionary<string, byte[]> EExchangeDocument(string token, Enum documentType)
         {
-            dicECurrencyList.Clear();
-            foreach (var eExchange in eCurrencyResponse.contents)
+            dicEExchangeList.Clear();
+            foreach (var eExchange in eExchangeResponse.contents)
             {
                 try
                 {
                     string url = BaseAdapter.BaseUrl + "/v1/exchanges/" + eExchange.id + "/preview/"+documentType.ToString().ToLower();
                     var responseData = (string)baseAdapter.HttpReqRes(token, url);
                     byte[] bytes = Encoding.ASCII.GetBytes(responseData);
-                    dicECurrencyList.Add(eExchange.documentNo, bytes);
+                    dicEExchangeList.Add(eExchange.documentNo, bytes);
                 }
                 catch (Exception e)
                 {
                     System.Diagnostics.Debug.WriteLine(eExchange.documentNo + "mevcut değildir.");
                 }
             }
-            return dicECurrencyList;
+            return dicEExchangeList;
         }
 
 
@@ -70,10 +68,7 @@ namespace Izibiz.Adapter
                 };
                 payloads[0] = payload;
                 var responseData = (string)baseAdapter.HttpReqRes(token, url,"POST",payloads);
-                var deserializerData = JsonConvert.DeserializeObject<BaseResponse<CheckandExchangeResponse>>(responseData);
-                eExchangeDowloadResponse = deserializerData.data;
-                return eExchangeDowloadResponse;
-
+            return FolderOperations.BaseDeserialize<CheckandExchangeResponse>(responseData);
         }
 
         public BaseResponse<object> EExchangeCompressUBL(string token,EExchangeCompressUblRequest request)
@@ -81,7 +76,6 @@ namespace Izibiz.Adapter
             string url = BaseAdapter.BaseUrl + "/v1/exchanges/ubl";
             var responseData = (string)baseAdapter.HttpReqRes(token, url,"POST",request);
             var deserializerData = JsonConvert.DeserializeObject<BaseResponse<object>>(responseData);
-            //eCurrencyResponse = deserializerData.data;
             return deserializerData;
         }
 

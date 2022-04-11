@@ -19,17 +19,12 @@ namespace Izibiz.Adapter
         EDespatchResponse eDespatchResponseList;
         Dictionary<string, byte[]> dicDespatchList = new Dictionary<string, byte[]>();
 
-        public EDespatchAdapter()
-        {
-
-        }
 
         public EDespatchResponse EDespatchList(string token)
         {
             string url = BaseAdapter.BaseUrl + "/v1/edespatches/outbox?dateType=DELIVERY&" + baseAdapter.startDate + "&" + baseAdapter.endDate + "&page=0&pageSize=20&sort=desc&sortProperty=supplierName";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EDespatchResponse>>(responseData);
-            eDespatchResponse = deserializerData.data;
+            eDespatchResponse= FolderOperations.BaseDeserialize<EDespatchResponse>(responseData);
             eDespatchResponseList = eDespatchResponse;
             return eDespatchResponse;
         }
@@ -40,7 +35,6 @@ namespace Izibiz.Adapter
             string url = BaseAdapter.BaseUrl + "/v1/edespatches/inbox/"+id;
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
             var deserializerData = JsonConvert.DeserializeObject<BaseResponse<object>>(responseData);
-          //  eDespatchResponse = deserializerData.data;
             return deserializerData;
         }
 
@@ -49,37 +43,10 @@ namespace Izibiz.Adapter
         {
             BaseResponse<object> deserializerData;
             deserializerData = baseAdapter.Status(token, EI.Type.EDespatch, status);
-            //if (status == "Outbox")
-            //{
-            //     deserializerData = baseAdapter.Status(token, EI.Type.EDespatch, EI.Status.Outbox);
-            //}
-            //else
-            //{
-            //    deserializerData = baseAdapter.Status(token, EI.Type.EDespatch, EI.Status.Inbox);
-            //}
             return deserializerData;
         }
 
 
-        //public Dictionary<string, byte[]> OutboxHtmlEDespatch(string token)
-        //{
-        //    dicDespatchList.Clear();
-        //    foreach (var outboxHtml in eDespatchResponse.contents)
-        //    {
-        //        try
-        //        {
-        //            string url = BaseAdapter.BaseUrl + "/v1/edespatches/outbox/" + outboxHtml.id + "/preview/html";
-        //            var responseData = baseAdapter.HttpReqRes(token, url);
-        //            byte[] bytes = Encoding.ASCII.GetBytes((string)responseData);
-        //            dicDespatchList.Add(outboxHtml.documentNo, bytes);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            System.Diagnostics.Debug.WriteLine(outboxHtml.documentNo + "mevcut değildir.");
-        //        }
-        //    }
-        //    return dicDespatchList;
-        //}
 
         public Dictionary<string, byte[]> GetEDespatchDocument(string token,Enum documentType)
         {
@@ -102,56 +69,12 @@ namespace Izibiz.Adapter
         }
 
 
-        //public Dictionary<string, byte[]> OutboxEDespatchUbl(string token)
-        //{
-        //    dicDespatchList.Clear();
-        //    foreach (var outboxUbl in eDespatchResponse.contents)
-        //    {
-        //        try
-        //        {
-        //            string url = BaseAdapter.BaseUrl + "/v1/edespatches/outbox/" + outboxUbl.id + "/preview/ubl";
-        //            var responseData = (string)baseAdapter.HttpReqRes(token, url);
-        //            byte[] bytes = Encoding.ASCII.GetBytes(responseData);
-        //            dicDespatchList.Add(outboxUbl.documentNo, bytes);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            System.Diagnostics.Debug.WriteLine(outboxUbl.documentNo + "mevcut değildir.");
-        //        }
-        //    }
-        //    return dicDespatchList;
-        //}
-
-
-        //public Dictionary<string, byte[]> PdfOutboxEDespatch(string token)
-        //{
-        //    dicDespatchList.Clear();
-        //    foreach (var outboxPdf in eDespatchResponse.contents)
-        //    {
-        //        try
-        //        {
-
-        //            string url = BaseAdapter.BaseUrl + "/v1/edespatches/outbox/" + outboxPdf.id + "/preview/pdf";
-        //            var responseData = (string)baseAdapter.HttpReqRes(token, url);
-        //            byte[] bytes = Encoding.ASCII.GetBytes(responseData);
-        //            dicDespatchList.Add(outboxPdf.documentNo, bytes);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            System.Diagnostics.Debug.WriteLine(outboxPdf.documentNo + "mevcut değildir.");
-        //        }
-        //    }
-        //    return dicDespatchList;
-        //}
-
-
         public EDespatchReceiptResponse ReceiptEDespatchList(string token)
         {
             
             string url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/inbox?dateType=DELIVERY&status=New&" + baseAdapter.startDate + "&" + baseAdapter.endDate + "&page=0&pageSize=20&sort=desc&sortProperty=supplierName";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EDespatchReceiptResponse>>(responseData);
-            return deserializerData.data;
+            return FolderOperations.BaseDeserialize<EDespatchReceiptResponse>(responseData);
         }
 
 

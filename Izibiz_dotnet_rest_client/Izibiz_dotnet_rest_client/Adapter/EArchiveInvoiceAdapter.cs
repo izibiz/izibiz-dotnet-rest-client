@@ -22,8 +22,7 @@ namespace Izibiz.Adapter
         {
             string url = BaseAdapter.BaseUrl+"/v1/earchives";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EArchiveInvoiceResponse>>(responseData);
-            eArchiveInvoiceResponse = deserializerData.data;
+            eArchiveInvoiceResponse = FolderOperations.BaseDeserialize<EArchiveInvoiceResponse>(responseData);
             return eArchiveInvoiceResponse;
         }
 

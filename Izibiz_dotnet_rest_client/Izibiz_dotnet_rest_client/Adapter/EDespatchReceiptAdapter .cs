@@ -19,20 +19,12 @@ namespace Izibiz.Adapter
         Dictionary<string, byte[]> dicEDespacthReceiptList = new Dictionary<string, byte[]>();
         Dictionary<string, byte[]> dicEDespacthReceiptList_outbox = new Dictionary<string, byte[]>();
         BaseAdapter baseAdapter = new BaseAdapter();
-
-        //public EDespatchReceiptAdapter()
-        //{
-
-        //}
-
        
         public EDespatchReceiptResponse EDespatchReceiptList(string token)
         {
             string url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/inbox?dateType=DELIVERY&" + baseAdapter.startDate + "&" + baseAdapter.endDate + "&page=0&pageSize=20&sort=desc&sortProperty=supplierName";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EDespatchReceiptResponse>>(responseData);
-            eDespatchReceiptResponse = deserializerData.data;
-           // eInvoiceListResponse = eInvoiceResponse;
+            eDespatchReceiptResponse = FolderOperations.BaseDeserialize<EDespatchReceiptResponse>(responseData);
             return eDespatchReceiptResponse;
         }
 
@@ -42,7 +34,6 @@ namespace Izibiz.Adapter
             string url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/inbox/" + id;
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
             var deserializerData = JsonConvert.DeserializeObject<BaseResponse<object>>(responseData);
-            //  eDespatchResponse = deserializerData.data;
             return deserializerData;
         }
 
@@ -93,42 +84,8 @@ namespace Izibiz.Adapter
         {
             string url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox?" + baseAdapter.startDate + "&" + baseAdapter.endDate + "&page=0&pageSize=100&sortProperty=createDate&sort=asc";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EDespatchReceiptResponse>>(responseData);
-            eDespatchReceiptResponseOutbox = deserializerData.data;
+            eDespatchReceiptResponseOutbox = FolderOperations.BaseDeserialize<EDespatchReceiptResponse>(responseData);
             return eDespatchReceiptResponseOutbox;
-        }
-
-
-        //public Dictionary<string, byte[]> EDespatchReceiptDocument_Outbox(string token, Enum documentType)
-        //{
-        //    dicEDespacthReceiptList.Clear();
-        //    foreach (var outboxUbl in eDespatchReceiptResponseOutbox.contents)
-        //    {
-        //        try
-        //        {
-        //            string url = "";
-        //            if (documentType.Equals(EI.DocumentType.XML))
-        //            {
-        //                url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox/" + outboxUbl.id + "/preview/ubl";
-        //            }
-        //            else if (documentType.Equals(EI.DocumentType.HTML))
-        //            {
-        //                url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox/" + outboxUbl.id + "/html";
-        //            }
-        //            else if (documentType.Equals(EI.DocumentType.PDF))
-        //            {
-        //                url = BaseAdapter.BaseUrl + "/v1/edespatch-responses/outbox/" + outboxUbl.id + "/pdf";
-        //            }
-        //            var responseData = (string)baseAdapter.HttpReqRes(token, url);
-        //            byte[] bytes = Encoding.ASCII.GetBytes(responseData);
-        //            dicEDespacthReceiptList.Add(outboxUbl.documentNo, bytes);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            System.Diagnostics.Debug.WriteLine(outboxUbl.documentNo + "mevcut değildir.");
-        //        }
-        //    }
-        //    return dicEDespacthReceiptList;
-        //}
+        }   
     }
 }

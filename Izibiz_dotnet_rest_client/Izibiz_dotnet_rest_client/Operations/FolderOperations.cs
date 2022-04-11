@@ -1,4 +1,6 @@
 ﻿using Ionic.Zip;
+using Izibiz.Response;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +14,8 @@ namespace Izibiz.Operations
     {
         public static string FolderPath(Enum type)
         {
-            string folderpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string folderpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\Izibiz_dotnet_soap_client_files";
+            CreateIfFileNotExists(folderpath);
             if (type.Equals(EI.Type.EInvoice))
             {
                 return string.Format("{0}{1}", folderpath, @"\EFatura\"); ;
@@ -92,6 +95,15 @@ namespace Izibiz.Operations
                 }
             }
             return null;
+        }
+
+        public static T BaseDeserialize<T>(string responseData)
+        { 
+            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<T>>(responseData);
+           T eInvoiceResponse = deserializerData.data;
+            return eInvoiceResponse;
+
+
         }
     }
 }

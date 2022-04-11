@@ -20,7 +20,7 @@ namespace Samples
         {
             var request = new AuthRequest
             {
-                username = "izibiz-dev",
+                username = "izibiz-test2",
                 password = "izi321",
             };
 

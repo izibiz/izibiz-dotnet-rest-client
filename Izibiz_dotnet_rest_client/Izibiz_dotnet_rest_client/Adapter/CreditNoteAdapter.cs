@@ -21,8 +21,10 @@ namespace Izibiz.Adapter
         {
             string url = BaseAdapter.BaseUrl + "/v1/ecreditnotes";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<CreditNoteResponse>>(responseData);
-            creditNoteResponse = deserializerData.data;
+            //var deserializerData = JsonConvert.DeserializeObject<BaseResponse<CreditNoteResponse>>(responseData);
+            //creditNoteResponse = deserializerData.data;
+            //return creditNoteResponse;
+            creditNoteResponse = FolderOperations.BaseDeserialize<CreditNoteResponse>(responseData);
             return creditNoteResponse;
         }
 

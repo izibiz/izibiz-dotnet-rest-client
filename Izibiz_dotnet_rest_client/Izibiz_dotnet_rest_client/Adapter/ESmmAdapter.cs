@@ -21,8 +21,7 @@ namespace Izibiz.Adapter
         {
             string url = BaseAdapter.BaseUrl + "/v1/esmms";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<ESmmResponse>>(responseData);
-            eSmmResponse = deserializerData.data;
+            eSmmResponse = FolderOperations.BaseDeserialize<ESmmResponse>(responseData);
             return eSmmResponse;
         }
 

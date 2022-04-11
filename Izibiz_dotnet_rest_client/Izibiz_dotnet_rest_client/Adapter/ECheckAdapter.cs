@@ -15,9 +15,9 @@ namespace Izibiz.Adapter
     {
 
         BaseAdapter baseAdapter = new BaseAdapter();
-        ECheckResponse eTicketResponse;
+        ECheckResponse eCheckResponse;
         CheckandExchangeResponse eCheckDowloadResponse;
-        ECheckResponse eTicketResponseList;
+        ECheckResponse eCheckResponseList;
         Dictionary<string, byte[]> dicTicketList = new Dictionary<string, byte[]>();
 
         public ECheckAdapter()
@@ -26,49 +26,32 @@ namespace Izibiz.Adapter
         }
 
 
-        public CheckandExchangeResponse ECheckDownload(string token,Enum documenttype)
+        public CheckandExchangeResponse ECheckDownload(string token, Enum documenttype)
         {
             string url = BaseAdapter.BaseUrl + "/v1/echecks/download/" + documenttype.ToString().ToLower();
             eCheckDowloadResponse = null;
             object[] payloads = new object[1];
             var payload = new
             {
-                id = eTicketResponseList.contents[0].id
+                id = eCheckResponseList.contents[0].id
             };
             payloads[0] = payload;
             var responseData = (string)baseAdapter.HttpReqRes(token, url, "POST", payloads);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<CheckandExchangeResponse>>(responseData);
-            eCheckDowloadResponse = deserializerData.data;
+            eCheckDowloadResponse = FolderOperations.BaseDeserialize<CheckandExchangeResponse>(responseData);
             return eCheckDowloadResponse;
-   
+
         }
 
         public string ECheckDelete(string token)
         {
-            //string url = BaseAdapter.BaseUrl + "/v1/edespatches/inbox?dateType=DELIVERY&status=New&startDate=2021-10-13&endDate=2021-10-28&page=0&pageSize=20&sort=desc&sortProperty=supplierName";
+
             string responseData = null;
             //BaseResponse<object> deserializerData=null;
             try
             {
-                string url = BaseAdapter.BaseUrl + "/v1/echecks/" + eTicketResponseList.contents[0].id;
-                 responseData = (string)baseAdapter.HttpReqRes(token, url,"DELETE");
-               // deserializerData = JsonConvert.DeserializeObject<BaseResponse<object>>(responseData);
-                //eTicketResponse = deserializerData.data;
-                //eTicketResponseList = eTicketResponse;
+                string url = BaseAdapter.BaseUrl + "/v1/echecks/" + eCheckResponseList.contents[0].id;
+                responseData = (string)baseAdapter.HttpReqRes(token, url, "DELETE");
                 return responseData;
-                //ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-
-                //var httpRequest = (HttpWebRequest)WebRequest.Create(url);
-                //httpRequest.Method = "DELETE";
-
-                //httpRequest.Accept = "*/*";
-                //httpRequest.Headers["Authorization"] = "Bearer " + token;
-                //HttpWebResponse response = (HttpWebResponse)httpRequest.GetResponse();
-                //Stream receiveStream = response.GetResponseStream();
-                //StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
-                //responseData = readStream.ReadToEnd();
-
-                //   var deserializerData = JsonConvert.DeserializeObject<BaseResponse<object>>(responseData);
             }
             catch (Exception e)
             {
@@ -78,22 +61,21 @@ namespace Izibiz.Adapter
         }
 
 
-            public ECheckResponse ECheckList(string token)
+        public ECheckResponse ECheckList(string token)
         {
-            //string url = BaseAdapter.BaseUrl + "/v1/edespatches/inbox?dateType=DELIVERY&status=New&startDate=2021-10-13&endDate=2021-10-28&page=0&pageSize=20&sort=desc&sortProperty=supplierName";
+
             string url = BaseAdapter.BaseUrl + "/v1/echecks";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<ECheckResponse>>(responseData);
-            eTicketResponse = deserializerData.data;
-            eTicketResponseList = eTicketResponse;
-            return eTicketResponse;
+            eCheckResponse = FolderOperations.BaseDeserialize<ECheckResponse>(responseData);
+            eCheckResponseList = eCheckResponse;
+            return eCheckResponse;
         }
 
 
         public Dictionary<string, byte[]> ECheckDocument(string token, Enum documentType)
         {
             dicTicketList.Clear();
-            foreach (var eCheck in eTicketResponse.contents)
+            foreach (var eCheck in eCheckResponse.contents)
             {
                 try
                 {

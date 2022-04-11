@@ -25,10 +25,8 @@ namespace Izibiz.Adapter
         {
             string url = BaseAdapter.BaseUrl + "/v1/einvoices/inbox?dateType=DELIVERY&status=New&startDate=" + baseAdapter.startDate+ "&endDate=" + baseAdapter.endDate+"&page=1&pageSize=20&sort=desc&sortProperty=supplierName";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>(responseData);
-            eInvoiceResponse = deserializerData.data;
-            eInvoiceListResponse = eInvoiceResponse;
-            return eInvoiceResponse;
+            eInvoiceListResponse= FolderOperations.BaseDeserialize<EInvoiceResponse>(responseData);
+            return FolderOperations.BaseDeserialize<EInvoiceResponse>(responseData);
         }
 
 
@@ -36,9 +34,7 @@ namespace Izibiz.Adapter
         {
             string url = BaseAdapter.BaseUrl+ "/v1/einvoices/inbox?status=ResponseUnDelivered&dateType=DELIVERY&startDate=" + baseAdapter.startDate + "&endDate=" + baseAdapter.endDate + "&pageSize=100&sortProperty=createDate&sort=asc";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>(responseData);
-            eInvoiceResponse = deserializerData.data;
-            return eInvoiceResponse;
+            return FolderOperations.BaseDeserialize<EInvoiceResponse>(responseData);
         }
        
         public Dictionary<string, byte[]> InboxViewEInvoice(string token,Enum documentType)
@@ -72,14 +68,6 @@ namespace Izibiz.Adapter
         {
             BaseResponse<object> deserializerData;
             deserializerData = baseAdapter.Status(token, EI.Type.EInvoice, status);
-            //if (status == "Inbox")
-            //{
-            //    deserializerData = baseAdapter.Status(token, EI.Type.EInvoice,EI.Status.Inbox);
-            //}
-            //else
-            //{
-            //    deserializerData = baseAdapter.Status(token,EI.Type.EInvoice,EI.Status.Outbox);
-            //}
             return deserializerData;
         }
 
@@ -89,39 +77,31 @@ namespace Izibiz.Adapter
         {
             string url = BaseAdapter.BaseUrl+"/v1/einvoices/outbox?page=0&pageSize=100&sortProperty=createDate&sort=asc";
             var responseData =(string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>(responseData);
-            eInvoiceResponse = deserializerData.data;
-            eInvoiceListResponse_Outbox = eInvoiceResponse;
-            return eInvoiceResponse;
+            eInvoiceListResponse_Outbox = FolderOperations.BaseDeserialize<EInvoiceResponse>(responseData);
+            return eInvoiceListResponse_Outbox;
+
         }
 
         public EInvoiceResponse PendingApprovalEInvoice_Outbox(string token)
         {
             string url = BaseAdapter.BaseUrl+"/v1/einvoices/outbox?status=WaitingForResponse&page=0&pageSize=100&sortProperty=createDate&sort=asc";
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>(responseData);
-            eInvoiceResponse = deserializerData.data;
-            return eInvoiceResponse;
+            return FolderOperations.BaseDeserialize<EInvoiceResponse>(responseData);
         }
 
 
         public EInvoiceResponse ApprovalExpiredEInvoice(string token,Enum productStatus)
         {
             string url = BaseAdapter.BaseUrl+"/v1/einvoices/"+productStatus.ToString().ToLower()+"?status=ResponseTimeExpired&page=0&pageSize=100&sortProperty=createDate&sort=asc";
-            var responseData =(string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>(responseData);
-            eInvoiceResponse = deserializerData.data;
-            //dictionary.Add("ApprovalExpiredEInvoice", eInvoiceResponse);
-            return eInvoiceResponse;
+            var responseData = (string)baseAdapter.HttpReqRes(token, url);
+            return FolderOperations.BaseDeserialize<EInvoiceResponse>(responseData);
         }
 
         public EInvoiceResponse UndeliverableEInvoiceList_Outbox(string token)
         {
             string url = BaseAdapter.BaseUrl+ "/v1/einvoices/outbox?status=UnDelivered&dateType=DELIVERY&startDate=" + baseAdapter.startDate + "&endDate=" + baseAdapter.endDate + "&pageSize=100&sortProperty=createDate&sort=asc";
-            var responseData = baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>((string)responseData);
-            eInvoiceResponse = deserializerData.data;
-            return eInvoiceResponse;
+            var responseData = (string)baseAdapter.HttpReqRes(token, url);
+            return FolderOperations.BaseDeserialize<EInvoiceResponse>(responseData);
         }
 
 
@@ -131,9 +111,7 @@ namespace Izibiz.Adapter
             string url = BaseAdapter.BaseUrl+ "/v1/einvoices/"+ productStatus.ToString().ToLower() + "?status=Rejected&dateType=DELIVERY&startDate=" + baseAdapter.startDate + "&endDate=" + baseAdapter.endDate + "&page=0&pageSize=100&sortProperty=createDate&sort=asc";
 
             var responseData = (string)baseAdapter.HttpReqRes(token, url);
-            var deserializerData = JsonConvert.DeserializeObject<BaseResponse<EInvoiceResponse>>(responseData);
-            eInvoiceResponse = deserializerData.data;
-            return eInvoiceResponse;
+            return FolderOperations.BaseDeserialize<EInvoiceResponse>(responseData);
         }
 
          /* Şimdilik çalışmıyor inboxdaki html alanı prewiev olduktan sonra çalışır.
